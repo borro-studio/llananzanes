@@ -80,17 +80,17 @@
     };
     // Los dos play() se lanzan en la misma llamada, sin esperar entre ellos:
     // Safari solo permite arrancar un audio dentro del propio gesto del usuario.
+    // Un toque dispara varios eventos seguidos y los primeros aún no cuentan como gesto:
+    // cada intento lleva su número para que uno fallido no pare lo que otro posterior ya arrancó.
+    let attempt = 0;
     const start = () => {
       if (on) return Promise.resolve(true);
       if (muted) return Promise.resolve(false);
-      const withVoice = get(sessionStorage, VOZ) !== "1";
+      const id = ++attempt;
       const pa = amb.play();
-      if (withVoice) {
-        voz.currentTime = 0;
-        voz.play().then(() => set(sessionStorage, VOZ, "1")).catch(() => {});
-      }
-      return pa.then(() => { on = true; fadeTo(0.45); ui(); return true; })
-               .catch(() => { voz.pause(); return false; });
+      if (get(sessionStorage, VOZ) !== "1") voz.play().then(() => set(sessionStorage, VOZ, "1")).catch(() => {});
+      return pa.then(() => { if (!on) { on = true; fadeTo(0.45); ui(); } return true; })
+               .catch(() => { if (id === attempt && !on) voz.pause(); return false; });
     };
     const stop = () => { on = false; voz.pause(); fadeTo(0); ui(); };
     sb.addEventListener("click", () => {
