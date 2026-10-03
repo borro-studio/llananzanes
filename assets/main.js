@@ -99,7 +99,8 @@
       if (on) { muted = true; set(localStorage, KEY, "off"); stop(); }
       else { muted = false; set(localStorage, KEY, "on"); start(); }
     });
-    start().then((ok) => {
+    // Si el navegador bloquea el sonido al cargar, arranca con el primer toque o tecla
+    const autoStart = () => start().then((ok) => {
       if (ok || muted) return;
       const evs = ["pointerdown", "pointerup", "mousedown", "touchend", "click", "keydown"];
       const first = (e) => {
@@ -108,6 +109,20 @@
       };
       evs.forEach((n) => addEventListener(n, first, true));
     });
+    // Pantalla de entrada: el clic en "Entrar" es el gesto que los navegadores exigen para sonar
+    const intro = document.querySelector(".intro");
+    if (intro && !root.classList.contains("entered")) {
+      const enter = (withSound) => {
+        root.classList.add("entered");
+        muted = !withSound;
+        set(localStorage, KEY, withSound ? "on" : "off");
+        if (withSound) start(); else ui();
+        setTimeout(() => intro.remove(), 1100);
+      };
+      intro.querySelector(".intro__enter").addEventListener("click", () => enter(true));
+      intro.querySelector(".intro__mute").addEventListener("click", () => enter(false));
+      intro.querySelector(".intro__enter").focus({ preventScroll: true });
+    } else autoStart();
     document.addEventListener("visibilitychange", () => {
       if (!on) return;
       if (document.hidden) { amb.pause(); voz.pause(); } else amb.play().catch(() => {});
