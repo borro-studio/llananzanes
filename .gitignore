@@ -2,7 +2,7 @@
 _original/
 _gen/
 export/
-*.mp4
+/*.mp4
 _tools/node_modules/
 _tools/vid/
 __pycache__/

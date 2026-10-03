@@ -72,11 +72,11 @@
     amb.volume = 0;
     // Saludos pregrabados ("Hola… Nombre."). Todos duran lo mismo y acaban en el mismo instante,
     // así que música, saludo y locución arrancan a la vez en el mismo gesto y quedan sincronizados.
-    let names = new Set(), sal = mk("saludos/_generico.mp3"), salKey = "_generico";
+    let names = new Set(), sal = mk("saludos/generico.mp3"), salKey = "generico";
     fetch(DIR + "saludos/index.json").then((r) => r.json()).then((l) => { names = new Set(l); }).catch(() => {});
     const keyOf = (txt) => {
       const k = (txt || "").trim().split(/\s+/)[0].toLowerCase().normalize("NFD").replace(/[^a-z]/g, "");
-      return names.has(k) ? k : "_generico";
+      return names.has(k) ? k : "generico";
     };
     const useGreeting = (txt) => {
       const k = keyOf(txt);
