@@ -257,13 +257,15 @@ em { font-style: italic; }
 
 /* ---------- Sonido ---------- */
 .sound {
-  position: fixed; right: 16px; bottom: 16px; z-index: 45; width: 48px; height: 48px; display: grid; place-items: center;
+  position: fixed; right: 16px; bottom: 16px; z-index: 45; min-width: 48px; height: 48px; padding: 0 13px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font: 600 14px/1 var(--f-text);
   background: rgba(16, 26, 20, .86); color: #eef0e6; border: 1px solid rgba(238, 240, 230, .22); cursor: pointer;
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .4s var(--ease), transform .2s var(--ease);
 }
 .sound:hover { background: #bd4d1b; }
 .sound:active { transform: scale(.96); }
 .sound .icon { width: 22px; height: 22px; }
+.sound__label:empty { display: none; }
 .sound .sound__on { display: none; }
 .sound.is-on .sound__on { display: block; }
 .sound.is-on .sound__off { display: none; }
