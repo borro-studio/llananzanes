@@ -62,13 +62,15 @@
     const amb = new Audio("assets/audio/ambiente.mp3");
     const voz = new Audio("assets/audio/voz.mp3");
     amb.loop = true; amb.volume = 0; amb.preload = "auto"; voz.preload = "auto";
-    let on = false, muted = get(localStorage, KEY) === "off", fade = 0;
+    let on = false, muted = get(localStorage, KEY) === "off", fade = 0, lvl = 0;
+    // El nivel se lleva en `lvl` y no se lee de amb.volume: en iOS el volumen es de solo lectura.
     const fadeTo = (target) => {
       clearInterval(fade);
       fade = setInterval(() => {
-        const d = target - amb.volume;
-        if (Math.abs(d) < 0.03) { amb.volume = target; clearInterval(fade); if (!target) amb.pause(); return; }
-        amb.volume = Math.max(0, Math.min(1, amb.volume + Math.sign(d) * 0.03));
+        const d = target - lvl;
+        lvl = Math.abs(d) < 0.03 ? target : lvl + Math.sign(d) * 0.03;
+        amb.volume = lvl;
+        if (lvl === target) { clearInterval(fade); if (!target) amb.pause(); }
       }, 60);
     };
     const ui = () => {
@@ -76,13 +78,19 @@
       sb.setAttribute("aria-pressed", on);
       sb.setAttribute("aria-label", on ? "Silenciar sonido" : "Activar sonido");
     };
-    const start = async () => {
-      if (on) return true;
-      if (muted) return false;
-      try { await amb.play(); } catch (e) { return false; }
-      on = true; fadeTo(0.45);
-      if (get(sessionStorage, VOZ) !== "1") { voz.currentTime = 0; voz.play().then(() => set(sessionStorage, VOZ, "1")).catch(() => {}); }
-      ui(); return true;
+    // Los dos play() se lanzan en la misma llamada, sin esperar entre ellos:
+    // Safari solo permite arrancar un audio dentro del propio gesto del usuario.
+    const start = () => {
+      if (on) return Promise.resolve(true);
+      if (muted) return Promise.resolve(false);
+      const withVoice = get(sessionStorage, VOZ) !== "1";
+      const pa = amb.play();
+      if (withVoice) {
+        voz.currentTime = 0;
+        voz.play().then(() => set(sessionStorage, VOZ, "1")).catch(() => {});
+      }
+      return pa.then(() => { on = true; fadeTo(0.45); ui(); return true; })
+               .catch(() => { voz.pause(); return false; });
     };
     const stop = () => { on = false; voz.pause(); fadeTo(0); ui(); };
     sb.addEventListener("click", () => {
