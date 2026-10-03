@@ -124,8 +124,8 @@ em { font-style: italic; }
   clip-path: inset(0 0 100% 0); transition: clip-path .7s var(--ease); visibility: hidden;
 }
 .menu.is-open { clip-path: inset(0 0 0 0); visibility: visible; }
-.menu__top { display: flex; justify-content: space-between; align-items: center; height: 48px; }
-.menu__top img { height: 40px; width: auto; }
+.menu__top { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); }
+.menu__top img { height: 38px; width: auto; }
 .menu__close { background: none; border: 0; color: inherit; padding: 8px; cursor: pointer; }
 .menu__close .icon { width: 28px; height: 28px; }
 .menu ul { list-style: none; padding: 0; margin: auto 0 32px; }
