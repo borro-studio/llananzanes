@@ -149,7 +149,7 @@
         if (withSound) start(); else ui();
         playVideo();
         if (name && hello && /^[\p{L} .'-]+$/u.test(name)) {
-          hello.textContent = "Hola, " + name.replace(/(^|[\s-])\p{L}/gu, (c) => c.toUpperCase()) + ".";
+          hello.textContent = "Hola, " + name.toLowerCase().replace(/(^|[\s-])\p{L}/gu, (c) => c.toUpperCase()) + ".";
           setTimeout(() => hello.classList.add("is-on"), 900);
         }
         input.blur();
