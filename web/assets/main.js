@@ -52,6 +52,16 @@
   );
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
+  // Visita virtual (fichas de casa): el vídeo solo se carga al pulsar reproducir
+  document.querySelectorAll(".tour").forEach((t) => {
+    const v = t.querySelector("video");
+    t.querySelector(".tour__play").addEventListener("click", () => {
+      t.classList.add("is-playing");
+      v.controls = true;
+      v.play().catch(() => {});
+    });
+  });
+
   // Vídeo de portada: arranca al entrar (o al cargar si no hay pantalla de entrada)
   const vid = document.querySelector(".hero__video");
   const playVideo = () => {
