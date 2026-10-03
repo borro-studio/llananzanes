@@ -19,10 +19,25 @@
       if (t === "light" || t === "dark") d.dataset.theme = t;
       if (/[?&]static/.test(q)) d.classList.add("static");
       if (/[?&]flat/.test(q)) d.classList.add("static", "flat");
+      // Sin pantalla de entrada en exportaciones, capturas (?nointro) o al llegar a un ancla
+      if (/[?&](flat|static|nointro)/.test(q) || location.hash.length > 1) d.classList.add("no-intro", "entered");
     })(document.documentElement, location.search);
   </script>
 </head>
 <body>
+
+<div class="intro" role="dialog" aria-modal="true" aria-label="Bienvenida a El Mirador de Llananzanes">
+  <img class="intro__bg" src="assets/img/home-banner-casa-atardecer.jpg" alt="">
+  <div class="wrap intro__inner">
+    <img class="intro__logo" src="assets/img/logo-light.png" alt="El Mirador de Llananzanes" width="381" height="100">
+    <p class="intro__title">Mucho más que<br><em>una casa rural.</em></p>
+    <div class="intro__actions">
+      <button class="btn btn--solid intro__enter" type="button">Entrar <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#arrow-right"/></svg></button>
+      <button class="intro__mute" type="button">Entrar sin sonido</button>
+    </div>
+  </div>
+</div>
+<noscript><style>.intro { display: none; }</style></noscript>
 
 <header class="nav">
   <div class="wrap">

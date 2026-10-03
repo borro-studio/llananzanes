@@ -6,7 +6,7 @@ const p=require('puppeteer-core');
  const pg=await b.newPage();
  await pg.setViewport({width:+w,height:+h,deviceScaleFactor:+dpr,isMobile:mobile,hasTouch:mobile});
  await pg.emulateMediaFeatures([{name:'prefers-color-scheme',value:'light'}]);
- await pg.goto('http://localhost:4320/',{waitUntil:'networkidle0'});
+ await pg.goto('http://localhost:4320/?nointro',{waitUntil:'networkidle0'});
  await pg.evaluate(()=>document.documentElement.style.scrollBehavior='auto');
  let n=0; const shot=async()=>pg.screenshot({path:`${dir}/f${String(n++).padStart(5,'0')}.jpg`,type:'jpeg',quality:82});
  const t0=Date.now(); while(Date.now()-t0<2600){await shot();}
