@@ -31,10 +31,14 @@
   <div class="wrap intro__inner">
     <img class="intro__logo" src="assets/img/logo-light.png" alt="El Mirador de Llananzanes" width="381" height="100">
     <p class="intro__title">Mucho más que<br><em>una casa rural.</em></p>
-    <div class="intro__actions">
-      <button class="btn btn--solid intro__enter" type="button">Entrar <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#arrow-right"/></svg></button>
+    <form class="intro__actions" novalidate>
+      <label class="intro__name">
+        <span class="sr-only">Tu nombre (opcional)</span>
+        <input class="intro__input" type="text" name="nombre" placeholder="Tu nombre" maxlength="24" autocomplete="given-name" autocapitalize="words" spellcheck="false" enterkeyhint="go">
+      </label>
+      <button class="btn btn--solid intro__enter" type="submit">Entrar <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#arrow-right"/></svg></button>
       <button class="intro__mute" type="button">Entrar sin sonido</button>
-    </div>
+    </form>
   </div>
 </div>
 <noscript><style>.intro { display: none; }</style></noscript>
@@ -85,12 +89,16 @@
   <section class="hero">
     <div class="hero__media">
       <img src="assets/img/home-banner-casa-atardecer.jpg" alt="La casa de piedra y fachada ocre al atardecer, con el valle de Aller detrás" width="1920" height="1080" fetchpriority="high">
+      <video class="hero__video" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"></video>
     </div>
     <div class="wrap hero__inner">
-      <h1>
-        <span class="line"><span style="--i:0">Donde termina</span></span>
-        <span class="line"><span style="--i:1"><em>el camino.</em></span></span>
-      </h1>
+      <div class="hero__title">
+        <p class="hero__hello" aria-live="polite"></p>
+        <h1>
+          <span class="line"><span style="--i:0">Donde termina</span></span>
+          <span class="line"><span style="--i:1"><em>el camino.</em></span></span>
+        </h1>
+      </div>
       <div class="hero__side">
         <p>Tres casas de piedra y madera a casi 1.000 metros, abiertas a los valles de Aller, en Asturias.</p>
         <div class="hero__ctas">
