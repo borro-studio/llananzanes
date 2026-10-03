@@ -52,11 +52,11 @@
   );
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-  // Sonido: ambiente del valle en bucle y locución una vez por visita.
+  // Sonido: ambiente del valle en bucle y locución en cada carga de la página.
   // Se intenta al cargar; si el navegador lo bloquea, arranca con el primer toque o tecla.
   const sb = document.querySelector(".sound");
   if (sb && !root.classList.contains("flat")) {
-    const KEY = "mll-sonido", VOZ = "mll-voz";
+    const KEY = "mll-sonido-2";
     const get = (st, k) => { try { return st.getItem(k); } catch (e) { return null; } };
     const set = (st, k, v) => { try { st.setItem(k, v); } catch (e) {} };
     const amb = new Audio("assets/audio/ambiente.mp3");
@@ -77,18 +77,20 @@
       sb.classList.toggle("is-on", on);
       sb.setAttribute("aria-pressed", on);
       sb.setAttribute("aria-label", on ? "Silenciar sonido" : "Activar sonido");
+      sb.querySelector(".sound__label").textContent = on ? "" : "Activar sonido";
     };
     // Los dos play() se lanzan en la misma llamada, sin esperar entre ellos:
     // Safari solo permite arrancar un audio dentro del propio gesto del usuario.
     // Un toque dispara varios eventos seguidos y los primeros aún no cuentan como gesto:
     // cada intento lleva su número para que uno fallido no pare lo que otro posterior ya arrancó.
-    let attempt = 0;
+    let attempt = 0, vozDone = false;
+    voz.addEventListener("ended", () => { vozDone = true; });
     const start = () => {
       if (on) return Promise.resolve(true);
       if (muted) return Promise.resolve(false);
       const id = ++attempt;
       const pa = amb.play();
-      if (get(sessionStorage, VOZ) !== "1") voz.play().then(() => set(sessionStorage, VOZ, "1")).catch(() => {});
+      if (!vozDone) voz.play().catch(() => {});
       return pa.then(() => { if (!on) { on = true; fadeTo(0.45); ui(); } return true; })
                .catch(() => { if (id === attempt && !on) voz.pause(); return false; });
     };
