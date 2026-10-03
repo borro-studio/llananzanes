@@ -120,12 +120,12 @@ em { font-style: italic; }
 
 .menu {
   position: fixed; inset: 0; z-index: 60; background: var(--night); color: var(--night-ink);
-  display: flex; flex-direction: column; padding: 24px var(--gutter) 40px;
+  display: flex; flex-direction: column; padding: 0 var(--gutter) 40px;
   clip-path: inset(0 0 100% 0); transition: clip-path .7s var(--ease); visibility: hidden;
 }
 .menu.is-open { clip-path: inset(0 0 0 0); visibility: visible; }
 .menu__top { display: flex; justify-content: space-between; align-items: center; height: 48px; }
-.menu__top img { height: 40px; }
+.menu__top img { height: 40px; width: auto; }
 .menu__close { background: none; border: 0; color: inherit; padding: 8px; cursor: pointer; }
 .menu__close .icon { width: 28px; height: 28px; }
 .menu ul { list-style: none; padding: 0; margin: auto 0 32px; }
@@ -212,14 +212,14 @@ em { font-style: italic; }
 }
 
 /* ---------- Experiencias (noche) ---------- */
-.night { position: relative; }
+.night { position: relative; padding-bottom: clamp(56px, 6vw, 88px); }
 .night__sky { position: relative; height: clamp(360px, 62vh, 640px); overflow: hidden; }
 .night__sky img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 .night__sky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 17, 14, .35) 0%, transparent 30%, transparent 55%, var(--bg) 100%); }
 .night__head { position: relative; margin-top: clamp(-220px, -18vw, -120px); z-index: 1; padding-bottom: clamp(48px, 6vw, 88px); }
 .night__head h2 { font-size: clamp(52px, 8vw, 136px); line-height: .92; max-width: 15ch; }
 .night__head p { margin-top: 24px; color: var(--night-ink-2); max-width: 48ch; }
-.xgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(280px, 30vw, 420px); gap: 12px; padding-bottom: clamp(12px, 1vw, 12px); margin-bottom: 12px; }
+.xgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(280px, 30vw, 420px); gap: 12px; }
 .xcard { position: relative; overflow: hidden; display: flex; align-items: flex-end; text-decoration: none; color: #f6f5f0; background: var(--bg-2); }
 .xcard:nth-child(1), .xcard:nth-child(6) { grid-column: span 2; }
 .xcard img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
@@ -325,7 +325,7 @@ html.flat .house { width: auto; }
 html.flat .house__img { height: auto; aspect-ratio: 3 / 2; }
 html.flat .house__meta { grid-template-columns: 1fr; gap: 14px; }
 html.flat .house__meta h3 { font-size: 64px; }
-html.flat 
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .nav__links { gap: 22px; }
@@ -352,7 +352,7 @@ html.flat
   .watermark { width: 92vw; right: -30vw; bottom: -6vw; }
   .manifesto__img { grid-column: 1; width: 78%; aspect-ratio: 3 / 4; }
   .manifesto__img::after { background: linear-gradient(180deg, rgba(29, 48, 37, 0) 45%, rgba(29, 48, 37, .9) 100%); }
-  .manifesto__copy { grid-column: 1; grid-row: 2; margin-top: -3.2em; padding-left: 12%; }
+  .manifesto__copy { grid-column: 1; grid-row: 2; margin-top: -3.2em; padding-left: 0; }
   .manifesto__copy .manifesto__text { max-width: none; }
   .where__img { aspect-ratio: 4 / 3; }
 }
