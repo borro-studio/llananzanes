@@ -56,7 +56,11 @@
   const vid = document.querySelector(".hero__video");
   const playVideo = () => {
     if (!vid || reduce || root.classList.contains("flat") || (navigator.connection && navigator.connection.saveData)) return;
-    if (!vid.src) vid.src = matchMedia("(max-width: 700px)").matches ? "assets/video/portada-movil.mp4" : "assets/video/portada.mp4";
+    if (!vid.src) {
+      // móvil vertical: recorte propio; pantallas grandes o retina: 1080p; resto: 720p
+      const big = innerWidth * (devicePixelRatio || 1) >= 1700;
+      vid.src = "assets/video/" + (matchMedia("(max-width: 700px)").matches ? "portada-movil.mp4" : big ? "portada-1080.mp4" : "portada.mp4");
+    }
     vid.addEventListener("playing", () => vid.classList.add("is-on"), { once: true });
     vid.play().catch(() => {});
   };
