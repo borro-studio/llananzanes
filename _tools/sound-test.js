@@ -3,7 +3,7 @@ const run=async(policy,label)=>{
  const b=await p.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:'new',args:['--autoplay-policy='+policy,'--mute-audio']});
  const pg=await b.newPage(); await pg.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
  const errs=[]; pg.on('pageerror',e=>errs.push(String(e))); pg.on('requestfailed',r=>errs.push('FAIL '+r.url()));
- await pg.goto('http://localhost:4320/',{waitUntil:'networkidle0'}); await new Promise(r=>setTimeout(r,1500));
+ await pg.goto(process.env.URL||'http://localhost:4320/',{waitUntil:'networkidle0'}); await new Promise(r=>setTimeout(r,1500));
  const st=()=>pg.evaluate(()=>({on:document.querySelector('.sound').classList.contains('is-on'),label:document.querySelector('.sound').getAttribute('aria-label'),voz:sessionStorage.getItem('mll-voz'),pref:localStorage.getItem('mll-sonido')}));
  const o={alCargar:await st()};
  await pg.touchscreen.tap(200,300); await new Promise(r=>setTimeout(r,1200)); o.trasPrimerToque=await st();

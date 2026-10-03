@@ -91,7 +91,7 @@
     });
     start().then((ok) => {
       if (ok || muted) return;
-      const evs = ["pointerdown", "keydown", "touchend"];
+      const evs = ["pointerdown", "pointerup", "mousedown", "touchend", "click", "keydown"];
       const first = (e) => {
         if (e.target.closest && e.target.closest(".sound")) return;
         start().then((ok2) => { if (ok2) evs.forEach((n) => removeEventListener(n, first, true)); });
