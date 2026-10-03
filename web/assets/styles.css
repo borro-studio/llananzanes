@@ -255,6 +255,20 @@ em { font-style: italic; }
 .cta__row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
 .cta__row a:not(.btn) { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; font-weight: 500; }
 
+/* ---------- Sonido ---------- */
+.sound {
+  position: fixed; right: 16px; bottom: 16px; z-index: 45; width: 48px; height: 48px; display: grid; place-items: center;
+  background: rgba(16, 26, 20, .86); color: #eef0e6; border: 1px solid rgba(238, 240, 230, .22); cursor: pointer;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .4s var(--ease), transform .2s var(--ease);
+}
+.sound:hover { background: #bd4d1b; }
+.sound:active { transform: scale(.96); }
+.sound .icon { width: 22px; height: 22px; }
+.sound .sound__on { display: none; }
+.sound.is-on .sound__on { display: block; }
+.sound.is-on .sound__off { display: none; }
+html.flat .sound { display: none; }
+
 /* ---------- Footer ---------- */
 .footer { padding: clamp(72px, 8vw, 110px) 0 0; overflow: hidden; }
 .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; padding-bottom: clamp(120px, 20vw, 320px); }
