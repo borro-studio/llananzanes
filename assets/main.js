@@ -52,16 +52,36 @@
   );
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-  // Sonido: ambiente del valle en bucle y locución en cada carga de la página.
-  // Se intenta al cargar; si el navegador lo bloquea, arranca con el primer toque o tecla.
+  // Vídeo de portada: arranca al entrar (o al cargar si no hay pantalla de entrada)
+  const vid = document.querySelector(".hero__video");
+  const playVideo = () => {
+    if (!vid || reduce || root.classList.contains("flat") || (navigator.connection && navigator.connection.saveData)) return;
+    if (!vid.src) vid.src = matchMedia("(max-width: 700px)").matches ? "assets/video/portada-movil.mp4" : "assets/video/portada.mp4";
+    vid.addEventListener("playing", () => vid.classList.add("is-on"), { once: true });
+    vid.play().catch(() => {});
+  };
+
+  // Sonido: ambiente del valle en bucle y, al entrar, música + saludo con el nombre + locución.
   const sb = document.querySelector(".sound");
   if (sb && !root.classList.contains("flat")) {
-    const KEY = "mll-sonido-2";
+    const KEY = "mll-sonido-2", DIR = "assets/audio/";
     const get = (st, k) => { try { return st.getItem(k); } catch (e) { return null; } };
     const set = (st, k, v) => { try { st.setItem(k, v); } catch (e) {} };
-    const amb = new Audio("assets/audio/ambiente.mp3");
-    const voz = new Audio("assets/audio/voz.mp3");
-    amb.loop = true; amb.volume = 0; amb.preload = "auto"; voz.preload = "auto";
+    const mk = (f, loop) => { const a = new Audio(DIR + f); a.preload = "auto"; a.loop = !!loop; return a; };
+    const amb = mk("ambiente.mp3", true), mus = mk("musica.mp3"), loc = mk("locucion.mp3");
+    amb.volume = 0;
+    // Saludos pregrabados ("Hola… Nombre."). Todos duran lo mismo y acaban en el mismo instante,
+    // así que música, saludo y locución arrancan a la vez en el mismo gesto y quedan sincronizados.
+    let names = new Set(), sal = mk("saludos/_generico.mp3"), salKey = "_generico";
+    fetch(DIR + "saludos/index.json").then((r) => r.json()).then((l) => { names = new Set(l); }).catch(() => {});
+    const keyOf = (txt) => {
+      const k = (txt || "").trim().split(/\s+/)[0].toLowerCase().normalize("NFD").replace(/[^a-z]/g, "");
+      return names.has(k) ? k : "_generico";
+    };
+    const useGreeting = (txt) => {
+      const k = keyOf(txt);
+      if (k !== salKey) { salKey = k; sal = mk("saludos/" + k + ".mp3"); }
+    };
     let on = false, muted = get(localStorage, KEY) === "off", fade = 0, lvl = 0;
     // El nivel se lleva en `lvl` y no se lee de amb.volume: en iOS el volumen es de solo lectura.
     const fadeTo = (target) => {
@@ -79,22 +99,23 @@
       sb.setAttribute("aria-label", on ? "Silenciar sonido" : "Activar sonido");
       sb.querySelector(".sound__label").textContent = on ? "" : "Activar sonido";
     };
-    // Los dos play() se lanzan en la misma llamada, sin esperar entre ellos:
+    // Todos los play() se lanzan en la misma llamada, sin esperar entre ellos:
     // Safari solo permite arrancar un audio dentro del propio gesto del usuario.
     // Un toque dispara varios eventos seguidos y los primeros aún no cuentan como gesto:
     // cada intento lleva su número para que uno fallido no pare lo que otro posterior ya arrancó.
     let attempt = 0, vozDone = false;
-    voz.addEventListener("ended", () => { vozDone = true; });
+    loc.addEventListener("ended", () => { vozDone = true; });
+    const seq = () => [mus, sal, loc];
     const start = () => {
       if (on) return Promise.resolve(true);
       if (muted) return Promise.resolve(false);
       const id = ++attempt;
       const pa = amb.play();
-      if (!vozDone) voz.play().catch(() => {});
+      if (!vozDone) seq().forEach((a) => { if (!a.ended) a.play().catch(() => {}); });
       return pa.then(() => { if (!on) { on = true; fadeTo(0.45); ui(); } return true; })
-               .catch(() => { if (id === attempt && !on) voz.pause(); return false; });
+               .catch(() => { if (id === attempt && !on) seq().forEach((a) => { a.pause(); a.currentTime = 0; }); return false; });
     };
-    const stop = () => { on = false; voz.pause(); fadeTo(0); ui(); };
+    const stop = () => { on = false; vozDone = true; seq().forEach((a) => a.pause()); fadeTo(0); ui(); };
     sb.addEventListener("click", () => {
       if (on) { muted = true; set(localStorage, KEY, "off"); stop(); }
       else { muted = false; set(localStorage, KEY, "on"); start(); }
@@ -112,22 +133,33 @@
     // Pantalla de entrada: el clic en "Entrar" es el gesto que los navegadores exigen para sonar
     const intro = document.querySelector(".intro");
     if (intro && !root.classList.contains("entered")) {
+      const input = intro.querySelector(".intro__input"), hello = document.querySelector(".hero__hello");
+      let t = 0;
+      input.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => useGreeting(input.value), 250); });
       const enter = (withSound) => {
+        const name = input.value.trim().replace(/\s+/g, " ").slice(0, 24);
+        useGreeting(name);
         root.classList.add("entered");
         muted = !withSound;
         set(localStorage, KEY, withSound ? "on" : "off");
         if (withSound) start(); else ui();
+        playVideo();
+        if (name && hello && /^[\p{L} .'-]+$/u.test(name)) {
+          hello.textContent = "Hola, " + name.replace(/(^|[\s-])\p{L}/gu, (c) => c.toUpperCase()) + ".";
+          setTimeout(() => hello.classList.add("is-on"), 900);
+        }
+        input.blur();
         setTimeout(() => intro.remove(), 1100);
       };
-      intro.querySelector(".intro__enter").addEventListener("click", () => enter(true));
+      intro.querySelector("form").addEventListener("submit", (e) => { e.preventDefault(); enter(true); });
       intro.querySelector(".intro__mute").addEventListener("click", () => enter(false));
-      intro.querySelector(".intro__enter").focus({ preventScroll: true });
-    } else autoStart();
+    } else { autoStart(); playVideo(); }
     document.addEventListener("visibilitychange", () => {
       if (!on) return;
-      if (document.hidden) { amb.pause(); voz.pause(); } else amb.play().catch(() => {});
+      if (document.hidden) { amb.pause(); seq().forEach((a) => a.pause()); }
+      else { amb.play().catch(() => {}); if (!vozDone) seq().forEach((a) => { if (!a.ended && a.currentTime > 0) a.play().catch(() => {}); }); }
     });
     ui();
-  }
+  } else playVideo();
 
 })();
