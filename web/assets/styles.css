@@ -208,7 +208,7 @@ html.js:not(.entered) .sound { display: none; }
 .aerial img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .aerial::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #1d3025 0%, rgba(29, 48, 37, 0) 22%, rgba(8, 12, 10, 0) 55%, rgba(8, 12, 10, .6) 100%); }
 .aerial__txt { position: relative; z-index: 1; padding-bottom: clamp(32px, 5vw, 64px); display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 28px; }
-.aerial strong { font: 500 clamp(96px, 19vw, 320px)/.8 var(--f-display); letter-spacing: -.04em; }
+.aerial strong { font: 500 clamp(64px, 11vw, 190px)/.8 var(--f-display); letter-spacing: -.04em; }
 .aerial span { font: 500 clamp(24px, 3.15vw, 50px)/1.2 var(--f-display); font-style: italic; }
 
 /* ---------- Casas: scroll horizontal ---------- */
