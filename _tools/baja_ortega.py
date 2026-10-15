@@ -3,8 +3,8 @@
 Uso: baja_ortega.py <ids.txt>   (lee pares "identificador url" por la entrada estándar;
 ids.txt tiene líneas "clave identificador")"""
 import sys, os, subprocess, urllib.request
-T = os.path.expanduser("~/Downloads/llananzanes/_gen/audio/ortega")
-TOOL = os.path.expanduser("~/Downloads/llananzanes/_tools/saludo.py")
+T = os.path.expanduser("~/Proyectos/llananzanes/_gen/audio/ortega")
+TOOL = os.path.expanduser("~/Proyectos/llananzanes/_tools/saludo.py")
 key = {}
 for l in open(sys.argv[1]):
     if l.strip(): k, i = l.split(); key[i] = k

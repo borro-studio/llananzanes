@@ -3,7 +3,7 @@
 Uso: vid/bin/python revisa_saludos.py [clave ...]   (sin claves: todos)"""
 import json, os, sys, unicodedata, difflib
 from faster_whisper import WhisperModel
-R = os.path.expanduser("~/Downloads/llananzanes")
+R = os.path.expanduser("~/Proyectos/llananzanes")
 WEB = f"{R}/web/assets/audio/saludos"
 nombres = json.load(open(f"{R}/_gen/audio/saludos/nombres.json"))
 plano = lambda t: "".join(c for c in unicodedata.normalize("NFD", t.lower()) if c.isalpha())

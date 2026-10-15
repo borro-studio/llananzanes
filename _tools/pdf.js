@@ -8,7 +8,7 @@ const p=require('puppeteer-core');
  await pg.emulateMediaFeatures([{name:'prefers-color-scheme',value:'light'}]);
  await pg.goto('http://localhost:4320/?flat',{waitUntil:'networkidle0'});
  // fuentes estáticas (pesos fijos) para que el PDF lleve fuentes reales y el texto sea editable en Illustrator
- const fs=require('fs'), FD=require('os').homedir()+'/Downloads/llananzanes/export/fuentes/';
+ const fs=require('fs'), FD=require('os').homedir()+'/Proyectos/llananzanes/export/fuentes/';
  const face=(fam,file,w,st)=>`@font-face{font-family:"${fam}";src:url(data:font/ttf;base64,${fs.readFileSync(FD+file).toString('base64')}) format("truetype");font-weight:${w};font-style:${st};}`;
  await pg.addStyleTag({content:[
    face('CG Static','CormorantGaramond-Medium.ttf',500,'normal'),face('CG Static','CormorantGaramond-SemiBold.ttf',600,'normal'),face('CG Static','CormorantGaramond-MediumItalic.ttf',500,'italic'),

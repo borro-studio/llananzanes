@@ -2,7 +2,7 @@
 """Genera las fichas de las tres casas (web/casa-i.html, casa-ii.html, casa-iii.html)
 a partir de una plantilla común. Para cambiar textos o fotos, editar CASAS y volver a ejecutar."""
 import os
-WEB = os.path.expanduser("~/Downloads/llananzanes/web")
+WEB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "web")
 RESERVA = "https://bookonline.pro/es/property/405750"
 VIDEO = "https://www.rural-llananzanes.com/wp-content/uploads/2026/06/casa-{n}-video.mp4"
 
@@ -19,9 +19,9 @@ CASAS = {
                 ("casa-i-planta-arriba-habitacion-2", "Habitación doble", "Dos camas, 20 m²", "Habitación de Piedrafita con dos camas individuales y pared color teja")],
     ),
     "ii": dict(
-        nombre="La Laguna", num="Casa II", personas=7,
-        titular="Espacio para siete, <em>con la estufa encendida.</em>",
-        intro="Dos plantas con techos abovedados de madera y grandes ventanales a las montañas, los valles y el bosque de castaños. Un salón amplio alrededor de la estufa de leña y sitio para siete.",
+        nombre="La Laguna", num="Casa II", personas=5,
+        titular="Espacio para cinco, <em>con la estufa encendida.</em>",
+        intro="Dos plantas con techos abovedados de madera y grandes ventanales a las montañas, los valles y el bosque de castaños. Un salón amplio alrededor de la estufa de leña y sitio para cinco.",
         baja=[("casa-ii-planta-baja-salon-comedor", "Salón comedor", "Con estufa de leña", "Salón comedor de La Laguna con estufa de leña y escalera de madera"),
               ("casa-ii-planta-baja-bano", "Baño", "Completo, con ducha", "Baño de la planta baja de La Laguna con lavabo redondo sobre encimera de madera"),
               ("casa-ii-planta-baja-cocina", "Cocina", "Totalmente equipada", "Cocina de La Laguna con encimera de granito, vitrocerámica y lavadora")],
@@ -30,9 +30,9 @@ CASAS = {
                 ("casa-ii-planta-arriba-habitacion-2", "Habitación doble", "Dos camas, 20 m²", "Habitación de La Laguna con dos camas individuales y ventanal al bosque")],
     ),
     "iii": dict(
-        nombre="Coto Bello", num="Casa III", personas=9,
+        nombre="Coto Bello", num="Casa III", personas=7,
         titular="Un balcón <em>sobre los valles asturianos.</em>",
-        intro="Dos plantas con techos abovedados de madera y grandes ventanales a las montañas, los valles y el bosque de castaños. La más capaz de las tres: sitio para nueve alrededor de la estufa.",
+        intro="Dos plantas con techos abovedados de madera y grandes ventanales a las montañas, los valles y el bosque de castaños. Un salón comedor abierto a la cocina y sitio para siete alrededor de la estufa.",
         baja=[("casa-iii-planta-baja-salon-comedor", "Salón comedor", "Con estufa de leña", "Salón comedor de Coto Bello con la estufa de leña encendida"),
               ("casa-iii-planta-baja-bano", "Baño", "Completo, con ducha", "Baño de la planta baja de Coto Bello con azulejo rojo y lavabo redondo"),
               ("casa-iii-planta-baja-salon-cocina", "Cocina", "Abierta al salón", "Cocina de Coto Bello con muro de piedra y ventana al valle")],
@@ -223,7 +223,7 @@ def pagina(n):
     <div class="wrap">
       <div class="reveal">
         <h2 id="equip-t">Llegar y <em>no echar nada en falta.</em></h2>
-        <p class="equip__lead">La casa está equipada por completo. Fuera, una finca de más de 3.000 m² compartida entre las tres casas.</p>
+        <p class="equip__lead">La casa está equipada por completo. Fuera, una finca de más de 4.000 m² compartida entre las tres casas.</p>
       </div>
       <div class="equip__cols reveal" style="--d:.1s">
         <div>
@@ -244,12 +244,19 @@ def pagina(n):
             <li>Aparcamiento privado</li>
             <li>Zona de barbacoa</li>
             <li>Zonas verdes y bancos</li>
-            <li>Fuente propia</li>
-            <li>Diana de tiro con arco</li>
             <li>Rutas desde la puerta</li>
           </ul>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- La finca: fotos del jardín -->
+  <section class="finca tone-night" aria-label="La finca">
+    <div class="wrap finca__grid">
+      <figure class="fig finca__a reveal"><div class="fig__img"><img src="assets/img/jardin-mesa-larga.jpg" alt="Jardín de la finca con mesa larga y bancos de madera junto a los postes de roble" loading="lazy"></div><figcaption><b>La finca</b><span>Mesa de madera junto al bosque</span></figcaption></figure>
+      <figure class="fig finca__b reveal" style="--d:.1s"><div class="fig__img"><img src="assets/img/jardin-mesa-vertical.jpg" alt="Mesa de piedra y bancos de tronco frente al valle de Aller" loading="lazy"></div><figcaption><b>El mirador</b><span>Frente al valle</span></figcaption></figure>
+      <figure class="fig finca__c reveal"><div class="fig__img"><img src="assets/img/jardin-mesa-horizontal.jpg" alt="Rincón del jardín con mesa de piedra y valla de madera, con las montañas al fondo" loading="lazy"></div><figcaption><b>Zonas verdes</b><span>Más de 4.000 m²</span></figcaption></figure>
     </div>
   </section>
 

@@ -5,7 +5,7 @@ termine justo cuando arranca la locución, y se regenera saludos/index.json.
 Uso: instala_saludos.py [carpeta_ok] [--pisar]
 Sin --pisar no toca los saludos que ya están en la web."""
 import json, os, re, subprocess, sys
-R = os.path.expanduser("~/Downloads/llananzanes")
+R = os.path.expanduser("~/Proyectos/llananzanes")
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 PISAR = "--pisar" in sys.argv
 OK, WEB = (os.path.abspath(args[0]) if args else f"{R}/_gen/audio/saludos/tanda/ok"), f"{R}/web/assets/audio/saludos"

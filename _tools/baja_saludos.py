@@ -3,8 +3,8 @@
 Uso: baja_saludos.py  (lee pares "identificador url" por la entrada estándar)
 Usa tanda/ids.txt (clave identificador) para saber a qué nombre corresponde cada identificador."""
 import sys, os, subprocess, urllib.request
-T = os.path.expanduser("~/Downloads/llananzanes/_gen/audio/saludos/tanda")
-TOOL = os.path.expanduser("~/Downloads/llananzanes/_tools/saludo.py")
+T = os.path.expanduser("~/Proyectos/llananzanes/_gen/audio/saludos/tanda")
+TOOL = os.path.expanduser("~/Proyectos/llananzanes/_tools/saludo.py")
 key = {}
 for l in open(f"{T}/ids.txt"):
     if l.strip(): k, i = l.split(); key[i] = k
