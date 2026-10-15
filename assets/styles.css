@@ -517,3 +517,14 @@ html.flat .house__meta h3 { font-size: 64px; }
   .finca__b { grid-column: 1; grid-row: auto; }
   .finca__b .fig__img { flex: none; aspect-ratio: 4 / 5; }
 }
+
+/* Botón flotante de WhatsApp (abajo a la izquierda; el de sonido va a la derecha) */
+.wa {
+  position: fixed; left: 16px; bottom: 16px; z-index: 45; width: 48px; height: 48px; display: grid; place-items: center;
+  background: #25d366; color: #fff; text-decoration: none; transition: transform .2s var(--ease), background .4s var(--ease);
+}
+.wa:hover { background: #1ebe5b; }
+.wa:active { transform: scale(.96); }
+.wa .icon { width: 26px; height: 26px; }
+html.js:not(.entered) .wa, html.flat .wa { display: none; }
+.cta__row { row-gap: 14px; }
