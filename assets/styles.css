@@ -504,3 +504,16 @@ html.flat .house__meta h3 { font-size: 64px; }
 }
 .hero--casa .hero__media::after { background: linear-gradient(180deg, rgba(8, 12, 10, .5) 0%, rgba(8, 12, 10, 0) 28%, rgba(8, 12, 10, .25) 50%, rgba(8, 12, 10, .88) 100%), linear-gradient(270deg, rgba(8, 12, 10, .72) 0%, rgba(8, 12, 10, 0) 46%); }
 .cta--casa h2 { max-width: none; } .cta--casa h2 em { display: block; white-space: nowrap; }
+
+/* Fotos de la finca (fichas de casa) */
+.finca { padding: 0 0 clamp(88px, 11vw, 170px); }
+.finca__grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(28px, 3vw, 44px) clamp(12px, 1.6vw, 24px); }
+.finca__a .fig__img, .finca__c .fig__img { aspect-ratio: 3 / 2; }
+.finca__b { grid-column: 2; grid-row: 1 / span 2; }
+.finca__b .fig__img { flex: 1; min-height: 0; }
+.finca__b .fig__img img { position: absolute; inset: 0; }
+@media (max-width: 900px) {
+  .finca__grid { grid-template-columns: 1fr; }
+  .finca__b { grid-column: 1; grid-row: auto; }
+  .finca__b .fig__img { flex: none; aspect-ratio: 4 / 5; }
+}
