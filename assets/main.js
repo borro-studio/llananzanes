@@ -62,6 +62,31 @@
     });
   });
 
+  // Tarjeta de temporada de nieve: de octubre a abril, unos segundos después de entrar, una vez por visita
+  const snow = document.querySelector(".snowcard");
+  if (snow && !root.classList.contains("flat")) {
+    const mes = new Date().getMonth() + 1, KEYS = "mll-invierno-visto";
+    let visto = false;
+    try { visto = sessionStorage.getItem(KEYS) === "1"; } catch (e) {}
+    const cerrar = () => {
+      snow.classList.remove("is-on");
+      try { sessionStorage.setItem(KEYS, "1"); } catch (e) {}
+      setTimeout(() => { snow.hidden = true; }, 600);
+    };
+    const mostrar = () => setTimeout(() => {
+      snow.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => snow.classList.add("is-on")));
+    }, root.classList.contains("static") ? 0 : 4500);
+    if ((mes >= 10 || mes <= 4) && !visto) {
+      if (root.classList.contains("entered")) mostrar();
+      else new MutationObserver((_, o) => { if (root.classList.contains("entered")) { o.disconnect(); mostrar(); } })
+        .observe(root, { attributes: true, attributeFilter: ["class"] });
+    }
+    snow.querySelector(".snowcard__x").addEventListener("click", cerrar);
+    snow.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { try { sessionStorage.setItem(KEYS, "1"); } catch (e) {} }));
+    addEventListener("keydown", (e) => e.key === "Escape" && snow.classList.contains("is-on") && cerrar());
+  }
+
   // Vídeo de portada: arranca al entrar (o al cargar si no hay pantalla de entrada)
   const vid = document.querySelector(".hero__video");
   const playVideo = () => {
