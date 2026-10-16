@@ -23,15 +23,15 @@ EXPERIENCIAS = {
         bloque="Tres <em>estaciones.</em>", bloque_eti="Cordillera Cantábrica",
         sitios=[
             dict(nombre="Fuentes de Invierno", ruta="43.0558428,-5.3934367", foto="esqui-fuentes", alt="Pistas nevadas vistas desde el telesilla de La Llomba, en Fuentes de Invierno",
-                 credito=("Desde el telesilla de La Llomba, en Fuentes de Invierno, con las pistas de San Isidro al fondo. Foto: NibasH, CC BY-SA 3.0", "https://commons.wikimedia.org/wiki/File:San_Isidro_-_Riopinos_desde_TSF4_Picu_La_Llomba_en_Fuentes_de_Invierno_-_panoramio.jpg"),
+                 credito=("", "NibasH, CC BY-SA 3.0", "https://commons.wikimedia.org/wiki/File:San_Isidro_-_Riopinos_desde_TSF4_Picu_La_Llomba_en_Fuentes_de_Invierno_-_panoramio.jpg"),
                  texto="La más cercana, en el propio concejo de Aller. Manejable y tranquila: perfecta para familias y para quien empieza.",
                  datos=[("Dónde", "Aller, Asturias"), ("Desde la casa", "28 km · unos 35 min"), ("Cotas", "1.500 – 1.950 m"), ("Pistas", "Unos 9 km")]),
             dict(nombre="San Isidro", ruta="43.0612889,-5.3798697", foto="esqui-san-isidro", alt="Telesilla y pista de la estación de San Isidro bajo un cielo azul",
-                 credito=("Estación de San Isidro. Foto: Wikimedia Commons, dominio público", "https://commons.wikimedia.org/wiki/File:Estaci%C3%B3n_de_esqu%C3%AD_de_San_Isidro.JPG"),
+                 credito=("", "Wikimedia Commons, dominio público", "https://commons.wikimedia.org/wiki/File:Estaci%C3%B3n_de_esqu%C3%AD_de_San_Isidro.JPG"),
                  texto="Pegada a Fuentes de Invierno, en la vertiente leonesa del puerto. La de más recorrido: cuatro sectores y pistas de todos los colores.",
                  datos=[("Dónde", "Puebla de Lillo, León"), ("Desde la casa", "28 km · unos 35 min"), ("Cotas", "1.500 – 2.100 m"), ("Pistas", "Unos 30 km")]),
             dict(nombre="Valgrande-Pajares", ruta="42.9688144,-5.7872938", foto="esqui-pajares", alt="Edificios de Brañillín y laderas nevadas de la estación de Valgrande-Pajares",
-                 credito=("Brañillín, en Valgrande-Pajares. Foto: Foltrikas, CC BY-SA 4.0 (reescalada)", "https://commons.wikimedia.org/wiki/File:Estaci%C3%B3n_de_Valgrande-Pajares.JPG"),
+                 credito=("", "Foltrikas, CC BY-SA 4.0 (reescalada)", "https://commons.wikimedia.org/wiki/File:Estaci%C3%B3n_de_Valgrande-Pajares.JPG"),
                  texto="La estación clásica de Asturias, en el puerto de Pajares. Tres sectores, telecabina y nieve artificial en parte de sus pistas.",
                  datos=[("Dónde", "Lena, Asturias"), ("Desde la casa", "70 km · 1 h 20 min"), ("Cotas", "1.450 – 1.890 m"), ("Pistas", "Unos 30 km")]),
         ],
@@ -63,7 +63,7 @@ def pagina(slug, e, cab, pie):
     for i, x in enumerate(e["sitios"]):
         datos = "".join(f"<li><span>{k}</span>{v}</li>" for k, v in x["datos"])
         sitios.append(f'''      <article class="station{' station--flip' if i % 2 else ''}">
-        <figure class="station__img reveal"><img src="../assets/img/{x['foto']}.jpg" alt="{x['alt']}" loading="lazy">{f'<figcaption><a href="{x["credito"][1]}" target="_blank" rel="noopener">{x["credito"][0]}</a></figcaption>' if x.get("credito") else ''}</figure>
+        <figure class="station__img reveal"><img src="../assets/img/{x['foto']}.jpg" alt="{x['alt']}" loading="lazy"></figure>
         <div class="station__txt reveal" style="--d:.1s">
           <span class="station__n">0{i + 1}</span>
           <h3>{x['nombre']}</h3>
@@ -72,6 +72,8 @@ def pagina(slug, e, cab, pie):
           <a class="btn btn--line station__go" href="https://www.google.com/maps/dir/?api=1&amp;origin={CASA}&amp;destination={x['ruta']}&amp;travelmode=driving" target="_blank" rel="noopener">Cómo llegar desde la casa {ICON('arrow-up-right')}</a>
         </div>
       </article>''')
+    cr = [f'<a href="{x["credito"][2]}" target="_blank" rel="noopener">{x["nombre"]}: {x["credito"][1]}</a>' for x in e["sitios"] if x.get("credito") and len(x["credito"]) > 2]
+    creditos = f'<p class="stations__credits">Fotos de las estaciones: {" · ".join(cr)}.</p>' if cr else ""
     x = e["extra"]
     main = f'''<main>
 
@@ -115,6 +117,7 @@ def pagina(slug, e, cab, pie):
       </div>
 {chr(10).join(sitios)}
       <p class="stations__note">{e['nota']}</p>
+      {creditos}
     </div>
   </section>
 

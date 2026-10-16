@@ -563,3 +563,6 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
   .station .station__img, .station .station__txt { grid-column: 1; grid-row: auto; }
 }
 .station__go { margin-top: 26px; }
+.stations__credits { margin-top: 10px; font-size: 12px; color: var(--ink-2); max-width: 80ch; }
+.stations__credits a { text-decoration: none; }
+.stations__credits a:hover { text-decoration: underline; }
