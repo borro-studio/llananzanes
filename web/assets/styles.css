@@ -566,3 +566,4 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
   .station, .xp-extra .wrap { grid-template-columns: 1fr; }
   .station .station__img, .station .station__txt { grid-column: 1; grid-row: auto; }
 }
+.station__go { margin-top: 26px; }

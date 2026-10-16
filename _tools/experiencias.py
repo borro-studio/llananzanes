@@ -7,6 +7,7 @@ import os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, "web")
 RESERVA = "https://bookonline.pro/es/property/405750"
+CASA = "43.0645974,-5.5755936"  # Llananzanes (enlace "Cómo llegar" de la home)
 WA = "https://wa.me/34660867462?text=Hola%2C%20quer%C3%ADa%20informaci%C3%B3n%20sobre%20El%20Mirador%20de%20Llananzanes"
 ICON = lambda n: f'<svg class="icon" aria-hidden="true"><use href="../assets/icons/sprite.svg#{n}"/></svg>'
 
@@ -21,17 +22,17 @@ EXPERIENCIAS = {
         intro="Desde Llananzanes se sube en media hora al puerto de San Isidro, donde se tocan Fuentes de Invierno y San Isidro. Pistas para todos los niveles, escuelas de esquí y snowboard, alquiler de material y zonas pensadas para familias.",
         bloque="Tres <em>estaciones.</em>", bloque_eti="Cordillera Cantábrica",
         sitios=[
-            dict(nombre="Fuentes de Invierno", foto="esqui-fuentes", alt="Esquiador bajando por una pista ancha con huellas en la nieve",
+            dict(nombre="Fuentes de Invierno", ruta="43.0558428,-5.3934367", foto="esqui-fuentes", alt="Esquiador bajando por una pista ancha con huellas en la nieve",
                  texto="La más cercana, en el propio concejo de Aller. Manejable y tranquila: perfecta para familias y para quien empieza.",
-                 datos=[("Dónde", "Aller, Asturias"), ("Desde la casa", "Unos 35 min en coche"), ("Cotas", "1.500 – 1.950 m"), ("Pistas", "Unos 9 km")]),
-            dict(nombre="San Isidro", foto="esqui-san-isidro", alt="Esquís clavados en la nieve frente a un valle nevado",
+                 datos=[("Dónde", "Aller, Asturias"), ("Desde la casa", "28 km · unos 35 min"), ("Cotas", "1.500 – 1.950 m"), ("Pistas", "Unos 9 km")]),
+            dict(nombre="San Isidro", ruta="43.0612889,-5.3798697", foto="esqui-san-isidro", alt="Esquís clavados en la nieve frente a un valle nevado",
                  texto="Pegada a Fuentes de Invierno, en la vertiente leonesa del puerto. La de más recorrido: cuatro sectores y pistas de todos los colores.",
-                 datos=[("Dónde", "Puebla de Lillo, León"), ("Desde la casa", "Unos 35 min en coche"), ("Cotas", "1.500 – 2.100 m"), ("Pistas", "Unos 30 km")]),
-            dict(nombre="Valgrande-Pajares", foto="esqui-pajares", alt="Telesillas entre pinos en una ladera nevada",
+                 datos=[("Dónde", "Puebla de Lillo, León"), ("Desde la casa", "28 km · unos 35 min"), ("Cotas", "1.500 – 2.100 m"), ("Pistas", "Unos 30 km")]),
+            dict(nombre="Valgrande-Pajares", ruta="42.9688144,-5.7872938", foto="esqui-pajares", alt="Telesillas entre pinos en una ladera nevada",
                  texto="La estación clásica de Asturias, en el puerto de Pajares. Tres sectores, telecabina y nieve artificial en parte de sus pistas.",
-                 datos=[("Dónde", "Lena, Asturias"), ("Desde la casa", "Algo más de 1 h en coche"), ("Cotas", "1.450 – 1.890 m"), ("Pistas", "Unos 30 km")]),
+                 datos=[("Dónde", "Lena, Asturias"), ("Desde la casa", "70 km · 1 h 20 min"), ("Cotas", "1.450 – 1.890 m"), ("Pistas", "Unos 30 km")]),
         ],
-        nota="Datos orientativos: los kilómetros abiertos cambian con la nieve de cada temporada. Antes de subir, mira el parte de la estación.",
+        nota="Datos orientativos: distancias y tiempos en coche desde Llananzanes (Aller), y kilómetros de pistas que cambian con la nieve de cada temporada. Antes de subir, mira el parte de la estación.",
         extra=dict(foto="esqui-raquetas", alt="Montañero subiendo por una ladera nevada bajo un cielo azul intenso",
                    titular="Sin esquís, <em>también.</em>",
                    texto="Rutas guiadas con raquetas por el entorno del puerto de San Isidro: bosques, lagos helados y cumbres de la cordillera, a tu ritmo. Te ayudamos a organizar la salida."),
@@ -65,6 +66,7 @@ def pagina(slug, e, cab, pie):
           <h3>{x['nombre']}</h3>
           <p>{x['texto']}</p>
           <ul class="station__data">{datos}</ul>
+          <a class="btn btn--line station__go" href="https://www.google.com/maps/dir/?api=1&amp;origin={CASA}&amp;destination={x['ruta']}&amp;travelmode=driving" target="_blank" rel="noopener">Cómo llegar desde la casa {ICON('arrow-up-right')}</a>
         </div>
       </article>''')
     x = e["extra"]
