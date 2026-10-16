@@ -577,16 +577,16 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 .snowcard[hidden] { display: none; }
 .snowcard__box {
   position: relative; width: min(980px, 100%); display: grid; grid-template-columns: 1.05fr 1fr; overflow: hidden;
-  background: #15201a; color: #eef0e6; box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+  background: #fff; color: #15201a; box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
   transform: translateY(28px) scale(.98); transition: transform .9s var(--ease);
 }
 .snowcard.is-on .snowcard__box { transform: none; }
-.snowcard__img { width: 100%; height: 100%; min-height: 460px; object-fit: cover; object-position: 50% 40%; display: block; }
+.snowcard__img { width: 100%; height: min(560px, 82vh); min-height: 0; object-fit: cover; object-position: 55% 45%; display: block; }
 .snowcard__body { padding: clamp(32px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; }
-.snowcard__eti { display: block; font: 600 12px/1.3 var(--f-text); letter-spacing: .16em; text-transform: uppercase; color: #e3a92b; margin-bottom: 20px; }
+.snowcard__eti { display: block; font: 600 12px/1.3 var(--f-text); letter-spacing: .16em; text-transform: uppercase; color: #b5791a; margin-bottom: 20px; }
 .snowcard__t { font: 500 clamp(40px, 4.4vw, 62px)/.98 var(--f-display); letter-spacing: -.025em; margin-bottom: 20px; }
-.snowcard__t em { display: block; }
-.snowcard__d { font-size: 15px; line-height: 1.5; font-weight: 600; letter-spacing: .02em; margin-bottom: 30px; padding-top: 18px; border-top: 1px solid rgba(238, 240, 230, .18); }
+.snowcard__t em { display: block; color: #bd4d1b; }
+.snowcard__d { font-size: 15px; line-height: 1.5; font-weight: 600; letter-spacing: .02em; margin-bottom: 30px; padding-top: 18px; border-top: 1px solid rgba(21, 32, 26, .14); color: #4a5750; }
 .nw { white-space: nowrap; }
 .snowcard__ctas { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .snowcard__x {
