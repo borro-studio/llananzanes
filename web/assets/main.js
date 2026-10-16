@@ -62,28 +62,36 @@
     });
   });
 
-  // Tarjeta de temporada de nieve: de octubre a abril, unos segundos después de entrar, una vez por visita
+  // Aviso de temporada de nieve (octubre-abril, una vez por visita). No tapa la presentación:
+  // sale al terminar la locución, a los 26 s de entrar si no hay sonido, o al dejar atrás la portada.
   const snow = document.querySelector(".snowcard");
   if (snow && !root.classList.contains("flat")) {
     const mes = new Date().getMonth() + 1, KEYS = "mll-invierno-visto";
-    let visto = false;
+    let visto = false, hecho = false, t = 0;
     try { visto = sessionStorage.getItem(KEYS) === "1"; } catch (e) {}
-    const cerrar = () => {
-      snow.classList.remove("is-on");
-      try { sessionStorage.setItem(KEYS, "1"); } catch (e) {}
-      setTimeout(() => { snow.hidden = true; }, 600);
-    };
-    const mostrar = () => setTimeout(() => {
+    const marcar = () => { try { sessionStorage.setItem(KEYS, "1"); } catch (e) {} };
+    const cerrar = () => { snow.classList.remove("is-on"); marcar(); setTimeout(() => { snow.hidden = true; }, 600); };
+    const mostrar = () => {
+      if (hecho) return; hecho = true; clearTimeout(t); removeEventListener("scroll", alBajar);
       snow.hidden = false;
       requestAnimationFrame(() => requestAnimationFrame(() => snow.classList.add("is-on")));
-    }, root.classList.contains("static") ? 0 : 4500);
+      snow.querySelector(".snowcard__x").focus({ preventScroll: true });
+    };
+    const alBajar = () => { if (scrollY > innerHeight * 0.6) mostrar(); };
+    const armar = () => {
+      if (root.classList.contains("static")) return mostrar();
+      document.addEventListener("mll:locucion-fin", mostrar, { once: true });
+      t = setTimeout(mostrar, 26000);
+      addEventListener("scroll", alBajar, { passive: true });
+    };
     if ((mes >= 10 || mes <= 4) && !visto) {
-      if (root.classList.contains("entered")) mostrar();
-      else new MutationObserver((_, o) => { if (root.classList.contains("entered")) { o.disconnect(); mostrar(); } })
+      if (root.classList.contains("entered")) armar();
+      else new MutationObserver((_, o) => { if (root.classList.contains("entered")) { o.disconnect(); armar(); } })
         .observe(root, { attributes: true, attributeFilter: ["class"] });
     }
     snow.querySelector(".snowcard__x").addEventListener("click", cerrar);
-    snow.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { try { sessionStorage.setItem(KEYS, "1"); } catch (e) {} }));
+    snow.addEventListener("click", (e) => { if (e.target === snow) cerrar(); });
+    snow.querySelectorAll("a").forEach((a) => a.addEventListener("click", marcar));
     addEventListener("keydown", (e) => e.key === "Escape" && snow.classList.contains("is-on") && cerrar());
   }
 
@@ -143,7 +151,7 @@
     // Un toque dispara varios eventos seguidos y los primeros aún no cuentan como gesto:
     // cada intento lleva su número para que uno fallido no pare lo que otro posterior ya arrancó.
     let attempt = 0, vozDone = false;
-    loc.addEventListener("ended", () => { vozDone = true; });
+    loc.addEventListener("ended", () => { vozDone = true; document.dispatchEvent(new Event("mll:locucion-fin")); });
     const seq = () => [mus, sal, loc];
     const start = () => {
       if (on) return Promise.resolve(true);
