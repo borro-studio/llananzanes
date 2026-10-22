@@ -91,3 +91,6 @@ Modo claro forzado (2026-10-16, decisión del usuario): quitado el @media prefer
 
 ## Aviso de nieve (2026-10-16, publicado)
 Modal centrado en la home (.snowcard en index.html, lógica en main.js, CSS en styles.css). Sale de octubre a abril, al terminar la locución (evento "mll:locucion-fin"), a los 26 s sin sonido o al bajar más del 60 % del hero; una vez por sesión (sessionStorage "mll-invierno-visto"). Tarjeta blanca con foto de esquiadora (assets/img/banner-esquiador.jpg, Freepik). Test: _tools/snowcard-test.js. Sin descuento: el cliente aún no ha definido promo.
+
+## Tema de WordPress (2026-10-22)
+Solo hay acceso a wp-admin (dominio, hosting y correo en Loading; tema actual Uncode de todobravo.es). Tema mínimo en _tools/tema (functions.php sirve web/*.html según la URL y reescribe assets/ a LLN_MEDIA). `_tools/tema.sh` genera export/tema-llananzanes.zip (54 MB, todo) y -ligero.zip (sin img/vídeo/audio, para alojar los medios fuera cambiando LLN_MEDIA). main.js calcula la carpeta de assets desde su propio src. Probado con un simulador en Node (no hay PHP en el Mac); falta probarlo en el WordPress real.

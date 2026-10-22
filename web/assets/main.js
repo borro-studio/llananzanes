@@ -1,4 +1,6 @@
 (() => {
+  // Carpeta de assets según dónde se cargue este script (web estática o tema de WordPress)
+  const ASSETS = ((document.currentScript && document.currentScript.src) || "").replace(/main\.js(\?.*)?$/, "") || "assets/";
   const root = document.documentElement;
   const q = new URLSearchParams(location.search);
   if (q.has("static")) root.classList.add("static");
@@ -102,7 +104,7 @@
     if (!vid.src) {
       // móvil vertical: recorte propio; pantallas grandes o retina: 1080p; resto: 720p
       const big = innerWidth * (devicePixelRatio || 1) >= 1700;
-      vid.src = "assets/video/" + (matchMedia("(max-width: 700px)").matches ? "portada-movil.mp4" : big ? "portada-1080.mp4" : "portada.mp4");
+      vid.src = ASSETS + "video/" + (matchMedia("(max-width: 700px)").matches ? "portada-movil.mp4" : big ? "portada-1080.mp4" : "portada.mp4");
     }
     vid.addEventListener("playing", () => vid.classList.add("is-on"), { once: true });
     vid.play().catch(() => {});
@@ -111,7 +113,7 @@
   // Sonido: ambiente del valle en bucle y, al entrar, música + saludo con el nombre + locución.
   const sb = document.querySelector(".sound");
   if (sb && !root.classList.contains("flat")) {
-    const KEY = "mll-sonido-2", DIR = "assets/audio/";
+    const KEY = "mll-sonido-2", DIR = ASSETS + "audio/";
     const get = (st, k) => { try { return st.getItem(k); } catch (e) { return null; } };
     const set = (st, k, v) => { try { st.setItem(k, v); } catch (e) {} };
     const mk = (f, loop) => { const a = new Audio(DIR + f); a.preload = "auto"; a.loop = !!loop; return a; };
