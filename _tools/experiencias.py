@@ -41,6 +41,52 @@ EXPERIENCIAS = {
                    texto="Rutas guiadas con raquetas por el entorno del puerto de San Isidro: bosques, lagos helados y cumbres de la cordillera, a tu ritmo. Te ayudamos a organizar la salida."),
         cierre="Reserva <em>tu invierno.</em>", cierre_foto="experiencia-esqui",
     ),
+    "senderismo-y-trekking": dict(
+        titulo="Senderismo y trekking",
+        descripcion="Rutas con historia cerca de El Mirador de Llananzanes, en Aller (Asturias): Peña Mea, las Foces del Pino y el hayedo del Gumial.",
+        hero="experiencia-senderismo-y-trekking", hero_alt="Sendero de montaña entre bosques y prados en el concejo de Aller",
+        etiqueta="Todo el año", ancla="rutas", ver="Ver las rutas",
+        entrada="Rutas para todos los niveles, desde paseos en familia hasta alta montaña. Y en cada una, una historia.",
+        titular="Caminos que ya pisaron <em>otros antes que tú.</em>",
+        intro="Bosques centenarios, ríos, brañas y cumbres con vistas inolvidables. Muy cerca de la casa salen rutas por los lugares más emblemáticos de Aller y de la Cordillera Cantábrica. Si lo deseas, con guías especializados que te descubrirán la flora, la fauna y la historia de este entorno.",
+        bloque="Rutas con <em>historia.</em>", bloque_eti="Aller de historias",
+        creditos_eti="Foto",
+        sitios=[
+            dict(nombre="Peña Mea", mapa="43.1751833,-5.5611506", foto="ruta-pena-mea", alt="El Ojo de Buey, el gran ventanal de roca que atraviesa el crestón de Peña Mea",
+                 credito=("", "Sitomon, CC BY-SA 2.5", "https://commons.wikimedia.org/wiki/File:Pe%C3%B1a_Mea_Ojo_de_Buey.JPG"),
+                 texto="Peña Mea (1557 m) se alza majestuosa entre los concejos de Laviana y Aller. Su recortada silueta llama poderosamente la atención. La ascensión requiere esfuerzo, pues se remontan casi 1000 m de desnivel, pero la recompensa ya se obtiene durante el camino por las espectaculares vistas, y la contemplación del mítico Ojo de Buey, un contrafuerte de silueta inconfundible, fruto de la erosión en la roca caliza.",
+                 historia=[
+                     "Gijs de Reijke, profesor de geografía y fotógrafo holandés descubrió en 2022 que la trayectoria de un eclipse solar iba a cruzar el norte de España cuatro años después. En lugar de conformarse con verlo desde cualquier lugar, se propuso un reto mayúsculo: fotografiar el eclipse alineado exactamente dentro del Ojo de Buey, el inmenso ventanal de roca de 20 metros de diámetro que acompaña la subida a Peña Mea. Desde su casa en los Países Bajos, y sin haber pisado Asturias en su vida, pasó estos años preparando lo que él mismo definió como «la sesión más meticulosa de su vida». Utilizó simuladores astronómicos y Google Earth para trazar líneas rectas que atravesaran la abertura de la roca, estudiando fotos y vídeos de montañeros para encontrar el punto exacto en la ladera desde el cual disparar.",
+                     "La ruta a Peña Mea, señalizada como Sendero de Pequeño Recorrido (PR), discurre, al principio por valles verdes y arbolados, y al final por roca viva. Durante el trayecto se pasa por aldeas, cabañas dispersas con abrevaderos para el ganado y prados de los que brotan fuentes. A mitad de trayecto la pista se convierte en una senda estrecha hasta la base de Peña Mea. Desde aquí la subida en zigzag por la montaña impone por su gran pendiente, y sin rastro aún del Ojo de Buey.",
+                     "El día del eclipse, el fotógrafo tuvo que enfrentarse a la dura realidad de esa ruta. Cargado con kilos de equipo fotográfico, abordó el exigente desnivel de las canales que suben hacia la peña. Él mismo confesó que el ascenso fue completamente extenuante por el peso que llevaba. Además, había un factor que ninguna aplicación podía controlar: la niebla y las nubes asturianas. Hasta la misma mañana de la expedición, no tuvo la certeza de si el cielo se despejaría lo suficiente para ver algo.",
+                     "Y de golpe, tras un recodo, apareció la oquedad, ese ventanal rocoso que traspasa el crestón de Peña Mea y depara una visión inolvidable.",
+                     "<strong>¿Te gustaría sentir la misma emoción que vivió Gijs al encontrarse con su escenario soñado, listo para conseguir una foto y un momento único?</strong>",
+                 ],
+                 datos=[("Dónde", "Entre Aller y Laviana"), ("Cumbre", "1.557 m"), ("Desnivel", "Casi 1.000 m"), ("Sendero", "Pequeño Recorrido (PR)")]),
+            dict(nombre="Foces del Pino", ruta="43.1141797,-5.5303052", foto="ruta-foces-del-pino", alt="Sendero tallado en la roca caliza de las Foces del Pino, junto al río",
+                 texto="La ruta que discurre desde Pola del Pino a los puertos pastoriles de Caniecha no es un bucólico paseo más de la extensa lista que nos ofrece el concejo de Aller.",
+                 historia=[
+                     "El desfiladero que atraviesa, que en Asturias conocemos como «foces», fue esculpido a lo largo de milenios por la fuerza de las aguas del río Pino, que talló la roca formando un paso angosto cuyas paredes casi verticales llegan a dejar una anchura de menos de 6 metros en algunos puntos.",
+                     "Sus impresionantes paredes de roca caliza guardan en su interior fósiles de algas y animales marinos con más de 300 millones de años de antigüedad, lo que demuestra que esta zona fue antaño un lecho marino.",
+                     "Y el sendero tallado a tramos en dicha roca, no sólo es la vía tradicional que utilizan los vaqueros del concejo de Aller para subir el ganado a los puertos de montaña y a las brañas cuando finaliza el invierno. Su caja la delata como una antigua calzada romana, paso de comunicación secular, que también fue empleada como alternativa por los peregrinos que se dirigían hacia el Camino de Santiago.",
+                     "<strong>¿Quieres vivir la experiencia que transmite atravesar estas foces que, a tenor de su importancia natural e histórica, han sido declaradas Monumento Natural?</strong>",
+                 ],
+                 datos=[("Recorrido", "Pola del Pino – puertos de Caniecha"), ("Desde la casa", "11 km · unos 15 min"), ("Protección", "Monumento Natural")]),
+            dict(nombre="El Gumial", ruta="43.0890804,-5.4702386", foto="ruta-gumial", alt="Arroyo en cascada entre hayas con colores de otoño",
+                 texto="Si decides adentrarte en la ruta que sube desde el pequeño pueblo de Cuevas hasta la braña del Gumial, no solo vas a caminar por uno de los bosques de hayas (hayedos) más impresionantes y cerrados de Asturias, sino que estarás pisando una auténtica «autopista» prehistórica.",
+                 historia=[
+                     "Años atrás, se encontraron en este mismo paraje montañoso dos puñales de la Edad del Bronce, «los puñales del Gumial». Su hallazgo demostró de manera irrefutable que esta ruta no es un simple sendero moderno para excursionistas. Hace más de 3.000 años, viajeros, cazadores o guerreros prehistóricos ya se abrían paso a través de la espesura del bosque del Gumial, armados con sus puñales de bronce, probablemente utilizando este puerto como una vía crucial para cruzar la Cordillera Cantábrica. Hoy en día, si quieres ver estas armas milenarias que cayeron o fueron depositadas en la ruta que vas a caminar, puedes encontrarlas expuestas a buen recaudo en el Museo Arqueológico de Asturias, en Oviedo.",
+                     "Cuando llegues al final de la ruta, al collado donde se abre el bosque y el paisaje te permite respirar frente a los picos que rondan los 1.800 metros de altitud, te encontrarás con la Braña del Gumial. Verás varias cabañas de piedra (corros y refugios). No son meras construcciones abandonadas; son el vestigio vivo de la trashumancia asturiana. Durante siglos, familias enteras de los pueblos del valle subían hasta aquí en los meses de verano con su ganado, viviendo aislados en la alta montaña para aprovechar los pastos frescos antes de que llegaran las nieves del duro invierno allerano.",
+                     "<strong>¿Te apetece transitar por un bosque prístino, recreando el paso y la presencia de nuestros antecesores, hasta uno de los lugares más mágicos de nuestras montañas?</strong>",
+                 ],
+                 datos=[("Recorrido", "Cuevas – braña del Gumial"), ("Desde la casa", "17 km · unos 20 min"), ("Paisaje", "Hayedo y braña")]),
+        ],
+        nota="Distancias y tiempos en coche desde Llananzanes (Aller), orientativos. Antes de salir, consulta el parte meteorológico: en la montaña asturiana la niebla cambia rápido.",
+        extra=dict(foto="ruta-foces-del-pino-2", alt="El río Pino saltando entre las rocas de las foces",
+                   titular="Con guía, <em>si quieres.</em>",
+                   texto="Te ponemos en contacto con guías de la zona que te acompañarán por estas y otras rutas, contándote la flora, la fauna y la historia de cada rincón. Escríbenos y lo organizamos."),
+        cierre="Reserva <em>tu ruta.</em>", cierre_foto="home-reserva",
+    ),
 }
 
 def concha():
@@ -62,18 +108,26 @@ def pagina(slug, e, cab, pie):
     sitios = []
     for i, x in enumerate(e["sitios"]):
         datos = "".join(f"<li><span>{k}</span>{v}</li>" for k, v in x["datos"])
-        sitios.append(f'''      <article class="station{' station--flip' if i % 2 else ''}">
+        historia = ""
+        if x.get("historia"):
+            ps = "".join(f"<p>{h}</p>" for h in x["historia"])
+            historia = f'\n          <details class="station__story"><summary>Leer la historia completa</summary>{ps}</details>'
+        if x.get("mapa"):
+            ir = f'<a class="btn btn--line station__go" href="https://www.google.com/maps/search/?api=1&amp;query={x["mapa"]}" target="_blank" rel="noopener">Ver en el mapa {ICON("arrow-up-right")}</a>'
+        else:
+            ir = f'<a class="btn btn--line station__go" href="https://www.google.com/maps/dir/?api=1&amp;origin={CASA}&amp;destination={x["ruta"]}&amp;travelmode=driving" target="_blank" rel="noopener">Cómo llegar desde la casa {ICON("arrow-up-right")}</a>'
+        sitios.append(f'''      <article class="station{' station--flip' if i % 2 else ''}{' station--story' if x.get('historia') else ''}">
         <figure class="station__img reveal"><img src="../assets/img/{x['foto']}.jpg" alt="{x['alt']}" loading="lazy"></figure>
         <div class="station__txt reveal" style="--d:.1s">
           <span class="station__n">0{i + 1}</span>
           <h3>{x['nombre']}</h3>
           <p>{x['texto']}</p>
-          <ul class="station__data">{datos}</ul>
-          <a class="btn btn--line station__go" href="https://www.google.com/maps/dir/?api=1&amp;origin={CASA}&amp;destination={x['ruta']}&amp;travelmode=driving" target="_blank" rel="noopener">Cómo llegar desde la casa {ICON('arrow-up-right')}</a>
+          <ul class="station__data">{datos}</ul>{historia}
+          {ir}
         </div>
       </article>''')
     cr = [f'<a href="{x["credito"][2]}" target="_blank" rel="noopener">{x["nombre"]}: {x["credito"][1]}</a>' for x in e["sitios"] if x.get("credito") and len(x["credito"]) > 2]
-    creditos = f'<p class="stations__credits">Fotos de las estaciones: {" · ".join(cr)}.</p>' if cr else ""
+    creditos = f'<p class="stations__credits">{e.get("creditos_eti", "Fotos de las estaciones")}: {" · ".join(cr)}.</p>' if cr else ""
     x = e["extra"]
     main = f'''<main>
 
@@ -91,7 +145,7 @@ def pagina(slug, e, cab, pie):
         <p>{e['entrada']}</p>
         <div class="hero__ctas">
           <a class="btn btn--solid" href="{RESERVA}" target="_blank" rel="noopener">Reservar {ICON('arrow-right')}</a>
-          <a class="btn btn--ghost-light" href="#estaciones">Ver las estaciones</a>
+          <a class="btn btn--ghost-light" href="#{e.get('ancla', 'estaciones')}">{e.get('ver', 'Ver las estaciones')}</a>
         </div>
       </div>
     </div>
@@ -109,7 +163,7 @@ def pagina(slug, e, cab, pie):
   </div>
 
   <!-- Estaciones -->
-  <section class="stations" id="estaciones" aria-labelledby="st-t">
+  <section class="stations" id="{e.get('ancla', 'estaciones')}" aria-labelledby="st-t">
     <div class="wrap">
       <div class="floor__head reveal">
         <h2 id="st-t">{e['bloque']}</h2>

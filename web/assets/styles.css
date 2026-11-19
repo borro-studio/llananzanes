@@ -563,6 +563,18 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
   .station .station__img, .station .station__txt { grid-column: 1; grid-row: auto; }
 }
 .station__go { margin-top: 26px; }
+/* Rutas con historia: la foto se queda fija mientras se lee */
+.station--story { align-items: start; }
+.station--story .station__img { position: sticky; top: 110px; }
+.station--story .station__txt > p { max-width: 46ch; }
+.station__story { margin-top: 26px; border-bottom: 1px solid var(--line); }
+.station__story summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; font-weight: 600; }
+.station__story summary::-webkit-details-marker { display: none; }
+.station__story summary::after { content: "+"; font: 400 26px/1 var(--f-display); color: var(--accent); transition: transform .4s var(--ease); }
+.station__story[open] summary::after { transform: rotate(45deg); }
+.station__story p { max-width: 46ch; margin: 0 0 18px; }
+.station__story p strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 900px) { .station--story .station__img { position: static; } }
 .stations__credits { margin-top: 10px; font-size: 12px; color: var(--ink-2); max-width: 80ch; }
 .stations__credits a { text-decoration: none; }
 .stations__credits a:hover { text-decoration: underline; }
