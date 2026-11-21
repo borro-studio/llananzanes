@@ -565,7 +565,6 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 .station__go { margin-top: 26px; }
 /* Rutas con historia: la foto se queda fija mientras se lee */
 .station--story { align-items: start; }
-.station--story .station__img { position: sticky; top: 110px; }
 .station--story .station__txt > p { max-width: 46ch; }
 .station__story { margin-top: 26px; border-bottom: 1px solid var(--line); }
 .station__story summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; font-weight: 600; }
@@ -575,6 +574,23 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 .station__story p { max-width: 46ch; margin: 0 0 18px; }
 .station__story p strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 900px) { .station--story .station__img { position: static; } }
+/* Mapa animado de cada ruta */
+.rmap { margin-top: clamp(14px, 1.6vw, 22px); background: #e4e6df; }
+.rmap svg { display: block; width: 100%; height: auto; }
+.rmap__sombra, .rmap__ruta { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.rmap__sombra { stroke: rgba(255, 255, 255, .85); stroke-width: 13; }
+.rmap__ruta { stroke: #bd4d1b; stroke-width: 6; }
+.rmap__mk circle { fill: #15201a; stroke: #fff; stroke-width: 4; }
+.rmap__mk text, .rmap__casa text { font: 600 25px/1 var(--f-text); fill: #15201a; paint-order: stroke; stroke: rgba(255, 255, 255, .92); stroke-width: 7px; stroke-linejoin: round; }
+.rmap__casa rect { fill: #e0a62c; stroke: #15201a; stroke-width: 3; }
+.rmap__yo { fill: #bd4d1b; stroke: #fff; stroke-width: 4; }
+.rmap__mk, .rmap__casa { transition: opacity .6s var(--ease); }
+.rmap.is-anim .rmap__mk:not(.is-on) { opacity: 0; }
+.rmap__bar { display: flex; align-items: center; gap: 18px; padding: 12px 16px; background: #15201a; color: #eef0e6; font-size: 14px; }
+.rmap__km { font: 500 22px/1 var(--f-display); min-width: 4.5em; }
+.rmap__otra { margin-left: auto; background: none; border: 0; color: inherit; font: inherit; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; opacity: .8; }
+.rmap__otra:hover { opacity: 1; }
+.station--story .station__img { position: static; }
 .stations__credits { margin-top: 10px; font-size: 12px; color: var(--ink-2); max-width: 80ch; }
 .stations__credits a { text-decoration: none; }
 .stations__credits a:hover { text-decoration: underline; }

@@ -211,4 +211,35 @@
     ui();
   } else playVideo();
 
+
+  /* Mapas de rutas: la línea se dibuja al entrar en pantalla, el punto avanza y los sitios aparecen a su paso */
+  document.querySelectorAll(".rmap").forEach((m) => {
+    const ruta = m.querySelector(".rmap__ruta"), sombra = m.querySelector(".rmap__sombra"), yo = m.querySelector(".rmap__yo");
+    const kmEl = m.querySelector(".rmap__km"), kmTot = parseFloat(m.dataset.km), L = ruta.getTotalLength();
+    const fmt = (k) => k.toFixed(1).replace(".", ",") + " km";
+    // posición de cada marca a lo largo de la línea
+    const mks = [...m.querySelectorAll(".rmap__mk")].map((g) => {
+      const x = +g.dataset.x, y = +g.dataset.y; let best = 0, bd = Infinity;
+      for (let s = 0; s <= L; s += L / 400) { const p = ruta.getPointAtLength(s), d = (p.x - x) ** 2 + (p.y - y) ** 2; if (d < bd) { bd = d; best = s; } }
+      return { g, at: best / L };
+    });
+    const pintar = (f) => {
+      [ruta, sombra].forEach((p) => { p.style.strokeDasharray = L; p.style.strokeDashoffset = L * (1 - f); });
+      const p = ruta.getPointAtLength(L * f); yo.setAttribute("cx", p.x); yo.setAttribute("cy", p.y);
+      kmEl.textContent = fmt(kmTot * f);
+      mks.forEach((k) => k.g.classList.toggle("is-on", f >= k.at - 0.01));
+    };
+    const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches || root.classList.contains("static");
+    let raf;
+    const animar = () => {
+      cancelAnimationFrame(raf); m.classList.add("is-anim");
+      const dur = 2600 + Math.min(kmTot, 20) * 160, t0 = performance.now();
+      const paso = (t) => { const x = Math.min(1, (t - t0) / dur), f = x < .5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2; pintar(f); if (x < 1) raf = requestAnimationFrame(paso); };
+      raf = requestAnimationFrame(paso);
+    };
+    if (quieto) { pintar(1); m.querySelector(".rmap__otra").hidden = true; return; }
+    pintar(0); m.classList.add("is-anim");
+    new IntersectionObserver((es, io) => es.forEach((e) => { if (e.isIntersecting) { animar(); io.disconnect(); } }), { threshold: 0.45 }).observe(m);
+    m.querySelector(".rmap__otra").addEventListener("click", animar);
+  });
 })();
