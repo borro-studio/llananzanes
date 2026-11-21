@@ -94,3 +94,6 @@ Modal centrado en la home (.snowcard en index.html, lógica en main.js, CSS en s
 
 ## Tema de WordPress (2026-10-22)
 Solo hay acceso a wp-admin (dominio, hosting y correo en Loading; tema actual Uncode de todobravo.es). Tema mínimo en _tools/tema (functions.php sirve web/*.html según la URL y reescribe assets/ a LLN_MEDIA). `_tools/tema.sh` genera export/tema-llananzanes.zip (54 MB, todo) y -ligero.zip (sin img/vídeo/audio, para alojar los medios fuera cambiando LLN_MEDIA). main.js calcula la carpeta de assets desde su propio src. Probado con un simulador en Node (no hay PHP en el Mac); falta probarlo en el WordPress real.
+
+## Senderismo (2026-11-21)
+experiencias/senderismo-y-trekking.html con las 3 "rutas con historia" del cliente (PDF en _original/cliente-rutas): solo resumen por ruta (historia_completa=False; el texto íntegro sigue en experiencias.py). Trazados: PR-AS 31 Foces del Pino y PR-AS 48 Gumial desde OpenStreetMap; Peña Mea trazada con BRouter desde Pelúgano (no hay PR en OSM). `_tools/mapas.py` genera mapas.json (+ fondos 2D mapa-*.jpg, OpenTopoMap). Mapa 3D: web/assets/rutas3d.js (MapLibre 4.7.1 desde unpkg, relieve Terrarium de AWS, se carga solo en esa página); si no hay WebGL o con ?static queda el mapa 2D animado de main.js. Pruebas: _tools/mapa-test.js (2D), _tools/mapa3d-test.js (3D), _tools/mapa-gif.js.

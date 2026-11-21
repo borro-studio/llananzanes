@@ -45,7 +45,7 @@ EXPERIENCIAS = {
         titulo="Senderismo y trekking",
         descripcion="Rutas con historia cerca de El Mirador de Llananzanes, en Aller (Asturias): Peña Mea, las Foces del Pino y el hayedo del Gumial.",
         hero="experiencia-senderismo-y-trekking", hero_alt="Sendero de montaña entre bosques y prados en el concejo de Aller",
-        etiqueta="Todo el año", ancla="rutas", ver="Ver las rutas",
+        etiqueta="Todo el año", ancla="rutas", historia_completa=False,  # solo el resumen (texto completo del cliente guardado abajo) ver="Ver las rutas",
         entrada="Rutas para todos los niveles, desde paseos en familia hasta alta montaña. Y en cada una, una historia.",
         titular="Caminos que ya pisaron <em>otros antes que tú.</em>",
         intro="Bosques centenarios, ríos, brañas y cumbres con vistas inolvidables. Muy cerca de la casa salen rutas por los lugares más emblemáticos de Aller y de la Cordillera Cantábrica. Si lo deseas, con guías especializados que te descubrirán la flora, la fauna y la historia de este entorno.",
@@ -118,7 +118,7 @@ def mapa_svg(slug, nombre):
         casa = f'<g class="rmap__casa"><rect x="{c["x"] - 11}" y="{c["y"] - 11}" width="22" height="22" rx="3"/><text x="{c["x"] + 18}" y="{c["y"] + 7}">La casa</text></g>'
     km = f'{m["km"]:.1f}'.replace(".", ",")
     sube = f'{m["sube"]:,}'.replace(",", ".")
-    return f'''<div class="rmap" data-km="{m["km"]}">
+    return f'''<div class="rmap" data-slug="{slug}" data-km="{m["km"]}">
           <svg viewBox="0 0 {m["w"]} {m["h"]}" role="img" aria-label="Mapa de la ruta de {nombre}: {km} km y {sube} m de desnivel">
             <image href="../assets/img/mapa-{slug}.jpg" width="{m["w"]}" height="{m["h"]}"/>
             <path class="rmap__sombra" d="{m["d"]}"/><path class="rmap__ruta" d="{m["d"]}"/>
@@ -134,7 +134,7 @@ def pagina(slug, e, cab, pie):
     for i, x in enumerate(e["sitios"]):
         datos = "".join(f"<li><span>{k}</span>{v}</li>" for k, v in x["datos"])
         historia = ""
-        if x.get("historia"):
+        if x.get("historia") and e.get("historia_completa", True):
             ps = "".join(f"<p>{h}</p>" for h in x["historia"])
             historia = f'\n          <details class="station__story"><summary>Leer la historia completa</summary>{ps}</details>'
         if x.get("mapa"):
@@ -225,6 +225,8 @@ def pagina(slug, e, cab, pie):
   </section>
 
 </main>'''
+    if "rmap" in main:  # mapas en 3D, solo en las páginas con rutas
+        pie = pie.replace("</body>", '<script src="../assets/rutas3d.js" defer></script>\n</body>')
     return cab + main + pie
 
 if __name__ == "__main__":
