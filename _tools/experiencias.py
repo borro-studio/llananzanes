@@ -48,7 +48,7 @@ EXPERIENCIAS = {
         etiqueta="Todo el año", ancla="rutas", historia_completa=False, formato="mapa",  # solo el resumen (texto completo del cliente guardado abajo) ver="Ver las rutas",
         entrada="Rutas para todos los niveles, desde paseos en familia hasta alta montaña. Y en cada una, una historia.",
         titular="Caminos que ya pisaron <em>otros antes que tú.</em>",
-        intro="Bosques centenarios, ríos, brañas y cumbres con vistas inolvidables. Muy cerca de la casa salen rutas por los lugares más emblemáticos de Aller y de la Cordillera Cantábrica. Si lo deseas, con guías especializados que te descubrirán la flora, la fauna y la historia de este entorno.",
+        intro="Bosques centenarios, ríos, brañas y cumbres con vistas inolvidables. Muy cerca de la casa salen rutas por los lugares más emblemáticos de Aller y de la Cordillera Cantábrica.",
         bloque="Rutas con <em>historia.</em>", bloque_eti="Aller de historias",
         creditos_eti="Foto", creditos_extra=" Mapas: © colaboradores de OpenStreetMap, SRTM | OpenTopoMap (CC BY-SA).",
         sitios=[
