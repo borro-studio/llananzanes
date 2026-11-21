@@ -226,7 +226,7 @@
     const pintar = (f) => {
       [ruta, sombra].forEach((p) => { p.style.strokeDasharray = L; p.style.strokeDashoffset = L * (1 - f); });
       const p = ruta.getPointAtLength(L * f); yo.setAttribute("cx", p.x); yo.setAttribute("cy", p.y);
-      if (!m.classList.contains("is-3d")) kmEl.textContent = fmt(kmTot * f);
+      if (!m.classList.contains("is-3d")) kmEl.textContent = "num" in kmEl.dataset ? fmt(kmTot * f).replace(" km", "") : fmt(kmTot * f);
       mks.forEach((k) => k.g.classList.toggle("is-on", f >= k.at - 0.01));
     };
     const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches || root.classList.contains("static");

@@ -45,14 +45,14 @@ EXPERIENCIAS = {
         titulo="Senderismo y trekking",
         descripcion="Rutas con historia cerca de El Mirador de Llananzanes, en Aller (Asturias): Peña Mea, las Foces del Pino y el hayedo del Gumial.",
         hero="experiencia-senderismo-y-trekking", hero_alt="Sendero de montaña entre bosques y prados en el concejo de Aller",
-        etiqueta="Todo el año", ancla="rutas", historia_completa=False,  # solo el resumen (texto completo del cliente guardado abajo) ver="Ver las rutas",
+        etiqueta="Todo el año", ancla="rutas", historia_completa=False, formato="mapa",  # solo el resumen (texto completo del cliente guardado abajo) ver="Ver las rutas",
         entrada="Rutas para todos los niveles, desde paseos en familia hasta alta montaña. Y en cada una, una historia.",
         titular="Caminos que ya pisaron <em>otros antes que tú.</em>",
         intro="Bosques centenarios, ríos, brañas y cumbres con vistas inolvidables. Muy cerca de la casa salen rutas por los lugares más emblemáticos de Aller y de la Cordillera Cantábrica. Si lo deseas, con guías especializados que te descubrirán la flora, la fauna y la historia de este entorno.",
         bloque="Rutas con <em>historia.</em>", bloque_eti="Aller de historias",
         creditos_eti="Foto", creditos_extra=" Mapas: © colaboradores de OpenStreetMap, SRTM | OpenTopoMap (CC BY-SA).",
         sitios=[
-            dict(nombre="Peña Mea", mapa_id="pena-mea", ruta="43.1513631,-5.583405", foto="ruta-pena-mea", alt="El Ojo de Buey, el gran ventanal de roca que atraviesa el crestón de Peña Mea",
+            dict(nombre="Peña Mea", mapa_id="pena-mea", km_eti="Hasta la cumbre", alto_eti="Cumbre", alto="1.557", foto_pie="El Ojo de Buey", salida="Sale de Pelúgano (Aller), a 14 km de la casa en coche, unos 20 min.", ruta="43.1513631,-5.583405", foto="ruta-pena-mea", alt="El Ojo de Buey, el gran ventanal de roca que atraviesa el crestón de Peña Mea",
                  credito=("", "Sitomon, CC BY-SA 2.5", "https://commons.wikimedia.org/wiki/File:Pe%C3%B1a_Mea_Ojo_de_Buey.JPG"),
                  texto="Casi 1.000 metros de subida entre aldeas, cabañas y fuentes hasta el Ojo de Buey, un ventanal de roca de 20 metros que atraviesa la cresta de la peña. El fotógrafo holandés Gijs de Reijke pasó cuatro años preparando, sin haber pisado nunca Asturias, una foto imposible: el eclipse de 2026 encajado justo dentro de él.",
                  historia=[
@@ -64,7 +64,7 @@ EXPERIENCIAS = {
                      "<strong>¿Te gustaría sentir la misma emoción que vivió Gijs al encontrarse con su escenario soñado, listo para conseguir una foto y un momento único?</strong>",
                  ],
                  datos=[("Salida", "Pelúgano (Aller)"), ("Hasta la cumbre", "5,9 km · unos 980 m de desnivel"), ("Cumbre", "1.557 m"), ("Desde la casa", "14 km · unos 20 min")]),
-            dict(nombre="Foces del Pino", mapa_id="foces-del-pino", ruta="43.1141797,-5.5303052", foto="ruta-foces-del-pino", alt="Sendero tallado en la roca caliza de las Foces del Pino, junto al río",
+            dict(nombre="Foces del Pino", mapa_id="foces-del-pino", km_eti="PR-AS 31", foto_pie="Las Foces del Pino", nota="Pasa a 700 m de la casa: se empieza andando.", salida="Sendero señalizado entre Casomera y Felechosa. Las foces, junto a Pola del Pino (11 km en coche).", ruta="43.1141797,-5.5303052", foto="ruta-foces-del-pino", alt="Sendero tallado en la roca caliza de las Foces del Pino, junto al río",
                  texto="El río Pino tardó milenios en tallar este desfiladero: en algunos puntos sus paredes de caliza dejan menos de 6 metros de paso y guardan fósiles marinos de más de 300 millones de años. Su sendero es una antigua calzada romana que aún usan los vaqueros para subir el ganado a los puertos, y que recorrieron peregrinos camino de Santiago.",
                  historia=[
                      "La ruta que discurre desde Pola del Pino a los puertos pastoriles de Caniecha no es un bucólico paseo más de la extensa lista que nos ofrece el concejo de Aller.",
@@ -74,7 +74,7 @@ EXPERIENCIAS = {
                      "<strong>¿Quieres vivir la experiencia que transmite atravesar estas foces que, a tenor de su importancia natural e histórica, han sido declaradas Monumento Natural?</strong>",
                  ],
                  datos=[("Sendero", "PR-AS 31 · Casomera – Felechosa"), ("Recorrido", "18 km · unos 1.070 m de desnivel"), ("Desde la casa", "Pasa a 700 m: se sale andando"), ("Protección", "Monumento Natural")]),
-            dict(nombre="El Gumial", mapa_id="gumial", ruta="43.0890804,-5.4702386", foto="ruta-gumial", alt="Arroyo en cascada entre hayas con colores de otoño",
+            dict(nombre="El Gumial", mapa_id="gumial", km_eti="PR-AS 48", salida="Sale de Cuevas (Aller), a 17 km de la casa en coche, unos 20 min.", ruta="43.0890804,-5.4702386", foto="ruta-gumial", alt="Arroyo en cascada entre hayas con colores de otoño",
                  texto="Desde Cuevas, uno de los hayedos más cerrados de Asturias sube hasta la braña del Gumial por un paso que ya se usaba hace más de 3.000 años: aquí aparecieron dos puñales de la Edad del Bronce, hoy en el Museo Arqueológico de Asturias. Arriba esperan las cabañas de piedra donde las familias del valle pasaban el verano con el ganado.",
                  historia=[
                      "Si decides adentrarte en la ruta que sube desde el pequeño pueblo de Cuevas hasta la braña del Gumial, no solo vas a caminar por uno de los bosques de hayas (hayedos) más impresionantes y cerrados de Asturias, sino que estarás pisando una auténtica «autopista» prehistórica.",
@@ -105,7 +105,7 @@ def concha():
     cab = re.sub(r'<link rel="preload" as="image" href="[^"]+">\n', "", cab)
     return cab, pie
 
-def mapa_svg(slug, nombre):
+def mapa_svg(slug, nombre, plano=False):
     """Mapa topográfico con la ruta que se dibuja al verlo (datos de _tools/mapas.py)."""
     m = json.load(open(os.path.join(WEB, "assets", "mapas.json")))[slug]
     def marca(k):
@@ -118,14 +118,64 @@ def mapa_svg(slug, nombre):
         casa = f'<g class="rmap__casa"><rect x="{c["x"] - 11}" y="{c["y"] - 11}" width="22" height="22" rx="3"/><text x="{c["x"] + 18}" y="{c["y"] + 7}">La casa</text></g>'
     km = f'{m["km"]:.1f}'.replace(".", ",")
     sube = f'{m["sube"]:,}'.replace(",", ".")
-    return f'''<div class="rmap" data-slug="{slug}" data-km="{m["km"]}">
-          <svg viewBox="0 0 {m["w"]} {m["h"]}" role="img" aria-label="Mapa de la ruta de {nombre}: {km} km y {sube} m de desnivel">
+    ajuste = ' preserveAspectRatio="xMidYMid slice"' if plano else ""
+    svg = f'''<svg class="rmap__plano" viewBox="0 0 {m["w"]} {m["h"]}"{ajuste} role="img" aria-label="Mapa de la ruta de {nombre}: {km} km y {sube} m de desnivel">
             <image href="../assets/img/mapa-{slug}.jpg" width="{m["w"]}" height="{m["h"]}"/>
             <path class="rmap__sombra" d="{m["d"]}"/><path class="rmap__ruta" d="{m["d"]}"/>
             {casa}{marcas}<circle class="rmap__yo" r="11" cx="-50" cy="-50"/>
-          </svg>
+          </svg>'''
+    if plano: return svg
+    return f'''<div class="rmap" data-slug="{slug}" data-km="{m["km"]}">
+          {svg}
           <div class="rmap__bar"><span class="rmap__km">{km} km</span><span>+{sube} m</span><button type="button" class="rmap__otra">Ver de nuevo</button></div>
         </div>'''
+
+def rutas_mapa(e, creditos):
+    """Rutas a pantalla completa sobre su mapa (3D si se puede): tarjeta a la izquierda, foto tipo polaroid y barra para saltar entre rutas."""
+    M = json.load(open(os.path.join(WEB, "assets", "mapas.json")))
+    miles = lambda n: f"{n:,}".replace(",", ".")
+    ON = ' class="on" aria-current="true"'
+    nav = lambda act: "".join(f'<a href="#ruta-{x["mapa_id"]}"{ON if x is act else ""}><span>0{i + 1}</span>{x["nombre"]}</a>' for i, x in enumerate(e["sitios"]))
+    secciones = []
+    for i, x in enumerate(e["sitios"]):
+        m = M[x["mapa_id"]]
+        km = f'{m["km"]:.1f}'.replace(".", ",")
+        nota = f'<p class="ruta__nota">{x["nota"]}</p>' if x.get("nota") else ""
+        ir = f'https://www.google.com/maps/dir/?api=1&amp;origin={CASA}&amp;destination={x["ruta"]}&amp;travelmode=driving'
+        secciones.append(f'''  <section class="ruta rmap" id="ruta-{x["mapa_id"]}" data-slug="{x["mapa_id"]}" data-km="{m["km"]}" aria-labelledby="ruta-{i}">
+    <div class="ruta__lienzo">{mapa_svg(x["mapa_id"], x["nombre"], plano=True)}</div>
+    <div class="ruta__velo" aria-hidden="true"></div>
+    <div class="wrap ruta__in">
+      <div class="ruta__card">
+        <span class="eyebrow">0{i + 1} · {e["bloque_eti"]}</span>
+        <h3 id="ruta-{i}">{x["nombre"]}</h3>
+        <p>{x["texto"]}</p>
+        <div class="ruta__datos">
+          <div><b><span class="rmap__km" data-num>{km}</span><small> km</small></b><span>{x.get("km_eti", "Recorrido")}</span></div>
+          <div><b>{miles(m["sube"])}<small> m</small></b><span>Desnivel</span></div>
+          <div><b>{x.get("alto", miles(m["zmax"]))}<small> m</small></b><span>{x.get("alto_eti", "Punto más alto")}</span></div>
+        </div>
+        {nota}<p class="ruta__salida">{x["salida"]}</p>
+        <div class="ruta__ctas"><a class="btn btn--solid" href="{ir}" target="_blank" rel="noopener">Cómo llegar desde la casa {ICON("arrow-up-right")}</a><button type="button" class="rmap__otra">Ver de nuevo</button></div>
+      </div>
+      <figure class="ruta__foto"><img src="../assets/img/{x["foto"]}.jpg" alt="{x["alt"]}" loading="lazy"><figcaption>{x.get("foto_pie", x["nombre"])}</figcaption></figure>
+    </div>
+    <nav class="ruta__nav" aria-label="Rutas">{nav(x)}</nav>
+  </section>''')
+    return f'''  <!-- Rutas -->
+  <section class="stations stations--rutas" id="{e.get('ancla', 'rutas')}" aria-labelledby="st-t">
+    <div class="wrap">
+      <div class="floor__head reveal">
+        <h2 id="st-t">{e['bloque']}</h2>
+        <span class="eyebrow">{e['bloque_eti']}</span>
+      </div>
+    </div>
+  </section>
+{chr(10).join(secciones)}
+  <div class="wrap rutas__pie">
+    <p class="stations__note">{e['nota']}</p>
+    {creditos}
+  </div>'''
 
 def pagina(slug, e, cab, pie):
     cab = re.sub(r"<title>.*?</title>", f"<title>{e['titulo']} | El Mirador de Llananzanes</title>", cab)
@@ -153,6 +203,18 @@ def pagina(slug, e, cab, pie):
       </article>''')
     cr = [f'<a href="{x["credito"][2]}" target="_blank" rel="noopener">{x["nombre"]}: {x["credito"][1]}</a>' for x in e["sitios"] if x.get("credito") and len(x["credito"]) > 2]
     creditos = f'<p class="stations__credits">{e.get("creditos_eti", "Fotos de las estaciones")}: {" · ".join(cr)}.{e.get("creditos_extra", "")}</p>' if cr else ""
+    estaciones = f'''  <!-- Estaciones -->
+  <section class="stations" id="{e.get('ancla', 'estaciones')}" aria-labelledby="st-t">
+    <div class="wrap">
+      <div class="floor__head reveal">
+        <h2 id="st-t">{e['bloque']}</h2>
+        <span class="eyebrow">{e['bloque_eti']}</span>
+      </div>
+{chr(10).join(sitios)}
+      <p class="stations__note">{e['nota']}</p>
+      {creditos}
+    </div>
+  </section>'''
     x = e["extra"]
     main = f'''<main>
 
@@ -187,18 +249,7 @@ def pagina(slug, e, cab, pie):
     </section>
   </div>
 
-  <!-- Estaciones -->
-  <section class="stations" id="{e.get('ancla', 'estaciones')}" aria-labelledby="st-t">
-    <div class="wrap">
-      <div class="floor__head reveal">
-        <h2 id="st-t">{e['bloque']}</h2>
-        <span class="eyebrow">{e['bloque_eti']}</span>
-      </div>
-{chr(10).join(sitios)}
-      <p class="stations__note">{e['nota']}</p>
-      {creditos}
-    </div>
-  </section>
+{rutas_mapa(e, creditos) if e.get("formato") == "mapa" else estaciones}
 
   <!-- Bloque extra -->
   <section class="xp-extra tone-night" aria-labelledby="ex-t">

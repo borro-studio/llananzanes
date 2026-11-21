@@ -141,7 +141,8 @@ def main():
             acum += dist(a, b)
             if acum >= 25: ll.append(b); acum = 0
         if ll[-1] != pts[-1]: ll.append(pts[-1])
-        datos[slug] = dict(ll=[[round(lo, 6), round(la, 6)] for la, lo in ll], casa_ll=[CASA[1], CASA[0]] if casa else None,w=W, h=H, d=d, marcas=marcas, casa=casa, km=round(km, 1),
+        perfil = [round(zs[round(i * (len(zs) - 1) / 79)]) for i in range(80)]  # 80 altitudes repartidas por la ruta
+        datos[slug] = dict(perfil=perfil, ll=[[round(lo, 6), round(la, 6)] for la, lo in ll], casa_ll=[CASA[1], CASA[0]] if casa else None,w=W, h=H, d=d, marcas=marcas, casa=casa, km=round(km, 1),
                            sube=round(desnivel(zs)), zmin=round(min(zs)), zmax=round(max(zs)), casa_m=round(cerca))
         print(f"{slug}: {km:.1f} km, +{datos[slug]['sube']} m ({datos[slug]['zmin']}–{datos[slug]['zmax']} m), zoom {z}, "
               f"a {cerca/1000:.1f} km de la casa{', casa en el mapa' if casa else ''}")
