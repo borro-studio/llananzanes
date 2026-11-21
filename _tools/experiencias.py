@@ -85,9 +85,6 @@ EXPERIENCIAS = {
                  datos=[("Sendero", "PR-AS 48 · desde Cuevas"), ("Recorrido", "9,2 km · unos 890 m de desnivel"), ("Paisaje", "Hayedo y braña"), ("Desde la casa", "17 km · unos 20 min")]),
         ],
         nota="Distancias, desniveles y trazados orientativos, a partir de los senderos señalizados de OpenStreetMap; tiempos en coche desde Llananzanes (Aller). Antes de salir, consulta el parte meteorológico: en la montaña asturiana la niebla cambia rápido.",
-        extra=dict(foto="ruta-foces-del-pino-2", alt="El río Pino saltando entre las rocas de las foces",
-                   titular="Con guía, <em>si quieres.</em>",
-                   texto="Te ponemos en contacto con guías de la zona que te acompañarán por estas y otras rutas, contándote la flora, la fauna y la historia de cada rincón. Escríbenos y lo organizamos."),
         cierre="Reserva <em>tu ruta.</em>", cierre_foto="home-reserva",
     ),
 }
@@ -215,7 +212,18 @@ def pagina(slug, e, cab, pie):
       {creditos}
     </div>
   </section>'''
-    x = e["extra"]
+    x = e.get("extra")
+    extra = f'''  <!-- Bloque extra -->
+  <section class="xp-extra tone-night" aria-labelledby="ex-t">
+    <div class="wrap">
+      <div class="xp-extra__img reveal"><img src="../assets/img/{x['foto']}.jpg" alt="{x['alt']}" loading="lazy"></div>
+      <div class="reveal" style="--d:.1s">
+        <h2 id="ex-t">{x['titular']}</h2>
+        <p>{x['texto']}</p>
+        <a class="link-arrow" href="{WA}" target="_blank" rel="noopener">Escríbenos por WhatsApp {ICON('arrow-up-right')}</a>
+      </div>
+    </div>
+  </section>''' if x else ""
     main = f'''<main>
 
   <!-- Cabecera -->
@@ -251,18 +259,7 @@ def pagina(slug, e, cab, pie):
 
 {rutas_mapa(e, creditos) if e.get("formato") == "mapa" else estaciones}
 
-  <!-- Bloque extra -->
-  <section class="xp-extra tone-night" aria-labelledby="ex-t">
-    <div class="wrap">
-      <div class="xp-extra__img reveal"><img src="../assets/img/{x['foto']}.jpg" alt="{x['alt']}" loading="lazy"></div>
-      <div class="reveal" style="--d:.1s">
-        <h2 id="ex-t">{x['titular']}</h2>
-        <p>{x['texto']}</p>
-        <a class="link-arrow" href="{WA}" target="_blank" rel="noopener">Escríbenos por WhatsApp {ICON('arrow-up-right')}</a>
-      </div>
-    </div>
-  </section>
-
+{extra}
   <!-- CTA final -->
   <section class="cta cta--casa" aria-labelledby="cta-t">
     <img src="../assets/img/{e.get('cierre_foto', 'home-reserva')}.jpg" alt="" loading="lazy">
