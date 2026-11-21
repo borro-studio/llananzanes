@@ -52,8 +52,8 @@ EXPERIENCIAS = {
         bloque="Rutas con <em>historia.</em>", bloque_eti="Aller de historias",
         creditos_eti="Foto", creditos_extra=" Mapas: © colaboradores de OpenStreetMap, SRTM | OpenTopoMap (CC BY-SA).",
         sitios=[
-            dict(nombre="Peña Mea", mapa_id="pena-mea", km_eti="Hasta la cumbre", alto_eti="Cumbre", alto="1.557", foto_pie="El Ojo de Buey", salida="Sale de Pelúgano (Aller), a 14 km de la casa en coche, unos 20 min.", ruta="43.1513631,-5.583405", foto="ruta-pena-mea", alt="El Ojo de Buey, el gran ventanal de roca que atraviesa el crestón de Peña Mea",
-                 credito=("", "Sitomon, CC BY-SA 2.5", "https://commons.wikimedia.org/wiki/File:Pe%C3%B1a_Mea_Ojo_de_Buey.JPG"),
+            dict(nombre="Peña Mea", mapa_id="pena-mea", km_eti="Hasta la cumbre", alto_eti="Cumbre", alto="1.557", foto_pie="El eclipse de 2026 en el Ojo de Buey", salida="Sale de Pelúgano (Aller), a 14 km de la casa en coche, unos 20 min.", ruta="43.1513631,-5.583405", foto="ruta-pena-mea-eclipse", foto_pos="44% 50%", alt="El eclipse de 2026 visto a través del Ojo de Buey de Peña Mea",
+                 credito=("", "Gijs de Reijke", ""),
                  texto="Casi 1.000 metros de subida entre aldeas, cabañas y fuentes hasta el Ojo de Buey, un ventanal de roca de 20 metros que atraviesa la cresta de la peña. El fotógrafo holandés Gijs de Reijke pasó cuatro años preparando, sin haber pisado nunca Asturias, una foto imposible: el eclipse de 2026 encajado justo dentro de él.",
                  historia=[
                      "Peña Mea (1557 m) se alza majestuosa entre los concejos de Laviana y Aller. Su recortada silueta llama poderosamente la atención. La ascensión requiere esfuerzo, pues se remontan casi 1000 m de desnivel, pero la recompensa ya se obtiene durante el camino por las espectaculares vistas, y la contemplación del mítico Ojo de Buey, un contrafuerte de silueta inconfundible, fruto de la erosión en la roca caliza.",
@@ -158,7 +158,7 @@ def rutas_mapa(e, creditos):
         {nota}<p class="ruta__salida">{x["salida"]}</p>
         <div class="ruta__ctas"><a class="btn btn--solid" href="{ir}" target="_blank" rel="noopener">Cómo llegar desde la casa {ICON("arrow-up-right")}</a><button type="button" class="rmap__otra">Ver de nuevo</button></div>
       </div>
-      <figure class="ruta__foto"><img src="../assets/img/{x["foto"]}.jpg" alt="{x["alt"]}" loading="lazy"><figcaption>{x.get("foto_pie", x["nombre"])}</figcaption></figure>
+      <figure class="ruta__foto"><img src="../assets/img/{x["foto"]}.jpg" alt="{x["alt"]}" loading="lazy" style="object-position: {x.get("foto_pos", "50% 50%")}"><figcaption>{x.get("foto_pie", x["nombre"])}</figcaption></figure>
     </div>
     <nav class="ruta__nav" aria-label="Rutas">{nav(x)}</nav>
   </section>''')
@@ -201,7 +201,7 @@ def pagina(slug, e, cab, pie):
           {ir}
         </div>
       </article>''')
-    cr = [f'<a href="{x["credito"][2]}" target="_blank" rel="noopener">{x["nombre"]}: {x["credito"][1]}</a>' for x in e["sitios"] if x.get("credito") and len(x["credito"]) > 2]
+    cr = [(f'<a href="{x["credito"][2]}" target="_blank" rel="noopener">{x["nombre"]}: {x["credito"][1]}</a>' if x["credito"][2] else f'{x["nombre"]}: {x["credito"][1]}') for x in e["sitios"] if x.get("credito") and len(x["credito"]) > 2]
     creditos = f'<p class="stations__credits">{e.get("creditos_eti", "Fotos de las estaciones")}: {" · ".join(cr)}.{e.get("creditos_extra", "")}</p>' if cr else ""
     estaciones = f'''  <!-- Estaciones -->
   <section class="stations" id="{e.get('ancla', 'estaciones')}" aria-labelledby="st-t">

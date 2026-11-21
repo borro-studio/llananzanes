@@ -127,7 +127,7 @@ def pagina(n):
     <li><a href="{RESERVA}" target="_blank" rel="noopener"><em>Reservar</em></a></li>
   </ul>
   <div class="menu__foot">
-    <a href="tel:+34661901664">+34 661 901 664</a>
+    <a href="tel:+34661901664">+34 661 901 664 (Vero)</a>
     <a href="tel:+34660867462">+34 660 867 462 (Dani)</a>
     <a href="mailto:info@rural-llananzanes.com">info@rural-llananzanes.com</a>
   </div>
@@ -293,7 +293,7 @@ def pagina(n):
       <h2 id="cta-t">Reserva <em>{c['nombre']}.</em></h2>
       <div class="cta__row">
         <a class="btn btn--solid" href="{RESERVA}" target="_blank" rel="noopener">Reservar {ICON('arrow-right')}</a>
-        <a href="tel:+34661901664">{ICON('phone')}+34 661 901 664</a>
+        <a href="tel:+34661901664">{ICON('phone')}+34 661 901 664 (Vero)</a>
         <a href="tel:+34660867462">{ICON('phone')}+34 660 867 462 (Dani)</a>
         <a href="https://wa.me/34660867462?text=Hola%2C%20quer%C3%ADa%20informaci%C3%B3n%20sobre%20El%20Mirador%20de%20Llananzanes" target="_blank" rel="noopener">{ICON('whatsapp-logo')}WhatsApp</a>
       </div>
@@ -332,7 +332,7 @@ def pagina(n):
       <div>
         <h4>Contacto</h4>
         <ul>
-          <li><a href="tel:+34661901664">+34 661 901 664</a></li>
+          <li><a href="tel:+34661901664">+34 661 901 664 (Vero)</a></li>
           <li><a href="tel:+34660867462">+34 660 867 462 (Dani)</a></li>
           <li><a href="https://wa.me/34660867462?text=Hola%2C%20quer%C3%ADa%20informaci%C3%B3n%20sobre%20El%20Mirador%20de%20Llananzanes" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:info@rural-llananzanes.com">info@rural-llananzanes.com</a></li>

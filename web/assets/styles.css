@@ -617,7 +617,7 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 .ruta__card h3 { font-size: clamp(52px, 5.8vw, 92px); line-height: .95; margin: 14px 0 20px; }
 .ruta__card > p { color: #c9d1c9; font-size: 16px; }
 .ruta__datos { display: flex; gap: 30px; margin: 26px 0 20px; }
-.ruta__datos b { display: block; font: 500 clamp(32px, 3vw, 44px)/1 var(--f-display); }
+.ruta__datos b { display: block; font: 500 clamp(28px, 2.6vw, 38px)/1 var(--f-text); letter-spacing: -.02em; }
 .ruta__datos small { font-size: .5em; }
 .ruta__datos div > span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8b3aa; }
 .ruta__nota { color: #e3a92b !important; font-weight: 600; font-size: 15px; margin-bottom: 6px; }
@@ -633,16 +633,33 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 .ruta__nav a:hover { opacity: .85; }
 .ruta__nav a.on { opacity: 1; border-color: #bd4d1b; }
 .rutas__pie { padding-top: 8px; padding-bottom: clamp(60px, 8vw, 120px); }
+.ruta__datos b { font-variant-numeric: lining-nums; }
+.ruta__datos .rmap__km { font: inherit; min-width: 0; }
 @media (max-width: 900px) {
   .ruta { height: auto; min-height: 0; }
-  .ruta__lienzo { position: relative; height: 58vh; min-height: 340px; }
-  .ruta__velo { display: none; }
-  .ruta__in { display: block; padding-top: 34px; padding-bottom: 100px; }
-  .ruta__card h3 { margin-top: 12px; }
-  .ruta__datos { gap: 20px; }
-  .ruta__foto { display: none; }
-  .ruta__nav a { padding: 16px 12px; font-size: 13px; }
-  .ruta__nav a span { display: block; margin: 0 0 4px; }
+  .ruta + .ruta { border-top: 0; }
+  .ruta__lienzo { position: relative; height: 56vh; min-height: 340px; max-height: 520px; }
+  /* el mapa se funde con el fondo y el nombre de la ruta va encima */
+  .ruta__velo { display: block; inset: auto 0 auto 0; top: 0; height: min(max(56vh, 340px), 520px); background: linear-gradient(180deg, rgba(21, 32, 26, 0) 55%, rgba(21, 32, 26, .85) 85%, #15201a 100%); }
+  .ruta__in { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0; padding-top: 0; padding-bottom: 64px; margin-top: -112px; }
+  .ruta__card { display: contents; }
+  .ruta__card .eyebrow { order: 1; }
+  .ruta__card h3 { order: 2; margin: 8px 0 22px; font-size: 50px; }
+  .ruta__card > p { order: 3; font-size: 16px; line-height: 1.6; }
+  .ruta__datos { order: 4; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 26px 0 26px; border-top: 1px solid rgba(238, 240, 230, .16); border-bottom: 1px solid rgba(238, 240, 230, .16); }
+  .ruta__datos > div { padding: 16px 0 14px; }
+  .ruta__datos > div + div { padding-left: 14px; border-left: 1px solid rgba(238, 240, 230, .16); }
+  .ruta__datos b { font-size: 26px; }
+  .ruta__datos div > span { font-size: 10px; letter-spacing: .1em; }
+  .ruta__foto { order: 5; display: block; align-self: stretch; width: auto; margin: 0 0 22px; padding: 0; background: none; transform: none; box-shadow: none; }
+  .ruta__foto img { aspect-ratio: 3 / 2; }
+  .ruta__foto figcaption { color: #a8b3aa; font-size: 12px; padding-top: 8px; }
+  .ruta__card > .ruta__nota { order: 6; margin-top: 0; }
+  .ruta__card > .ruta__salida { order: 7; }
+  .ruta__ctas { order: 8; flex-direction: column; align-items: stretch; gap: 14px; }
+  .ruta__ctas .btn { justify-content: center; }
+  .ruta .rmap__otra { align-self: center; }
+  .ruta__nav { display: none; }
 }
 .stations__credits { margin-top: 10px; font-size: 12px; color: var(--ink-2); max-width: 80ch; }
 .stations__credits a { text-decoration: none; }
