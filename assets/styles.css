@@ -576,7 +576,7 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 @media (max-width: 900px) { .station--story .station__img { position: static; } }
 /* Mapa animado de cada ruta */
 .rmap { margin-top: clamp(14px, 1.6vw, 22px); background: #e4e6df; }
-.rmap svg { display: block; width: 100%; height: auto; }
+.rmap .rmap__plano { display: block; width: 100%; height: auto; }
 .rmap__sombra, .rmap__ruta { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .rmap__sombra { stroke: rgba(255, 255, 255, .85); stroke-width: 13; }
 .rmap__ruta { stroke: #bd4d1b; stroke-width: 6; }
@@ -594,13 +594,56 @@ html.js:not(.entered) .wa, html.flat .wa { display: none; }
 .rmap { position: relative; }
 .rmap__3d { display: none; width: 100%; aspect-ratio: 4 / 3; background: #e4e6df; }
 .rmap.is-3d .rmap__3d { display: block; }
-.rmap.is-3d svg { display: none; }
+.rmap.is-3d .rmap__plano { display: none; }
 .rmap3__mk { display: flex; align-items: center; gap: 7px; pointer-events: none; }
 .rmap3__mk > * { opacity: 0; transition: opacity .6s var(--ease); }
 .rmap3__mk.is-on > * { opacity: 1; }
 .rmap3__mk i { width: 14px; height: 14px; border-radius: 50%; background: #15201a; border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
 .rmap3__mk span { font: 600 13px/1 var(--f-text); color: #15201a; background: rgba(255,255,255,.88); padding: 5px 8px; white-space: nowrap; }
 .rmap3__mk.is-casa i { border-radius: 3px; background: #e0a62c; border-color: #15201a; }
+/* Rutas a pantalla completa sobre su mapa */
+.stations--rutas { padding-bottom: clamp(40px, 5vw, 70px); }
+.ruta { position: relative; margin: 0; height: min(100vh, 920px); min-height: 680px; overflow: hidden; color: #eef0e6; background: #15201a; }
+.ruta + .ruta { border-top: 1px solid rgba(238, 240, 230, .12); }
+.ruta__lienzo { position: absolute; inset: 0; }
+.ruta__lienzo .rmap__plano { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ruta .rmap__3d { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+.ruta .rmap__mk text, .ruta .rmap__casa text { font-size: 19px; }
+.ruta__velo { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(21, 32, 26, .95) 0%, rgba(21, 32, 26, .86) 33%, rgba(21, 32, 26, 0) 60%); }
+.ruta__in { position: relative; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-top: 80px; padding-bottom: 70px; pointer-events: none; }
+.ruta__in > * { pointer-events: auto; }
+.ruta__card { max-width: 500px; }
+.ruta__card .eyebrow { color: #e3a92b; }
+.ruta__card h3 { font-size: clamp(52px, 5.8vw, 92px); line-height: .95; margin: 14px 0 20px; }
+.ruta__card > p { color: #c9d1c9; font-size: 16px; }
+.ruta__datos { display: flex; gap: 30px; margin: 26px 0 20px; }
+.ruta__datos b { display: block; font: 500 clamp(32px, 3vw, 44px)/1 var(--f-display); }
+.ruta__datos small { font-size: .5em; }
+.ruta__datos div > span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8b3aa; }
+.ruta__nota { color: #e3a92b !important; font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+.ruta__salida { font-size: 14px; color: #a8b3aa; margin-bottom: 26px; }
+.ruta__ctas { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.ruta .rmap__otra { margin: 0; color: #eef0e6; font-size: 14px; opacity: .75; background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; font-family: inherit; }
+.ruta__foto { align-self: flex-end; margin: 0 0 30px; width: clamp(200px, 18vw, 270px); background: #fff; padding: 10px 10px 8px; transform: rotate(2.5deg); box-shadow: 0 24px 60px rgba(0, 0, 0, .4); }
+.ruta__foto img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.ruta__foto figcaption { color: #15201a; font-size: 13px; padding-top: 8px; }
+.ruta__nav { position: absolute; left: 0; right: 0; bottom: 0; display: flex; background: rgba(21, 32, 26, .92); }
+.ruta__nav a { flex: 1; padding: 20px clamp(20px, 4vw, 56px); font-weight: 600; font-size: 14px; color: #eef0e6; text-decoration: none; opacity: .5; border-top: 3px solid transparent; transition: opacity .3s; }
+.ruta__nav a span { color: #e3a92b; margin-right: 10px; font-size: 12px; letter-spacing: .14em; }
+.ruta__nav a:hover { opacity: .85; }
+.ruta__nav a.on { opacity: 1; border-color: #bd4d1b; }
+.rutas__pie { padding-top: 8px; padding-bottom: clamp(60px, 8vw, 120px); }
+@media (max-width: 900px) {
+  .ruta { height: auto; min-height: 0; }
+  .ruta__lienzo { position: relative; height: 58vh; min-height: 340px; }
+  .ruta__velo { display: none; }
+  .ruta__in { display: block; padding-top: 34px; padding-bottom: 100px; }
+  .ruta__card h3 { margin-top: 12px; }
+  .ruta__datos { gap: 20px; }
+  .ruta__foto { display: none; }
+  .ruta__nav a { padding: 16px 12px; font-size: 13px; }
+  .ruta__nav a span { display: block; margin: 0 0 4px; }
+}
 .stations__credits { margin-top: 10px; font-size: 12px; color: var(--ink-2); max-width: 80ch; }
 .stations__credits a { text-decoration: none; }
 .stations__credits a:hover { text-decoration: underline; }

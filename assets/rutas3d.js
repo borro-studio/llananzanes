@@ -1,4 +1,4 @@
-/* Rutas en 3D: relieve real (Terrarium, AWS) con el mapa topográfico encima y una cámara que sobrevuela la ruta
+/* Rutas en 3D: relieve real (Terrarium, AWS Open Data) en los tonos de la web y una cámara que sobrevuela la ruta
    mientras se dibuja. Sustituye al mapa plano (.rmap svg) solo si el navegador puede con WebGL; si no, queda el plano. */
 (() => {
   const ASSETS = ((document.currentScript && document.currentScript.src) || "").replace(/rutas3d\.js(\?.*)?$/, "") || "../assets/";
@@ -31,23 +31,24 @@
     const lon = ll.map((p) => p[0]), lat = ll.map((p) => p[1]);
     const caja = [[Math.min(...lon), Math.min(...lat)], [Math.max(...lon), Math.max(...lat)]];
 
-    const caja3d = document.createElement("div"); caja3d.className = "rmap__3d"; m.prepend(caja3d);
+    const caja3d = document.createElement("div"); caja3d.className = "rmap__3d"; (m.querySelector(".ruta__lienzo") || m).prepend(caja3d);
+    // en las rutas a pantalla completa la tarjeta tapa la izquierda: la ruta se encuadra a la derecha
+    const hueco = () => m.classList.contains("ruta") && innerWidth > 900 ? { left: m.clientWidth * 0.44, right: Math.min(360, m.clientWidth * 0.24), top: 150, bottom: 120 } : { left: 40, right: 40, top: 40, bottom: 40 };
     const map = new maplibregl.Map({
       container: caja3d, interactive: false, attributionControl: false, fadeDuration: 0, maxPitch: 75,
-      bounds: caja, fitBoundsOptions: { padding: 50 },
+      bounds: caja, fitBoundsOptions: { padding: hueco() },
       style: {
         version: 8,
         sources: {
-          topo: { type: "raster", tiles: ["a", "b", "c"].map((s) => `https://${s}.tile.opentopomap.org/{z}/{x}/{y}.png`), tileSize: 256, maxzoom: 15 },
+          sombra: { type: "raster-dem", tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"], encoding: "terrarium", tileSize: 256, maxzoom: 13 },
           dem: { type: "raster-dem", tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"], encoding: "terrarium", tileSize: 256, maxzoom: 13 },
           ruta: { type: "geojson", data: { type: "Feature", geometry: { type: "LineString", coordinates: [ll[0], ll[0]] } } },
           yo: { type: "geojson", data: { type: "Feature", geometry: { type: "Point", coordinates: ll[0] } } },
           todo: { type: "geojson", data: { type: "Feature", geometry: { type: "LineString", coordinates: ll } } },
         },
         layers: [
-          { id: "fondo", type: "background", paint: { "background-color": "#e4e6df" } },
-          { id: "topo", type: "raster", source: "topo", paint: { "raster-saturation": -0.55, "raster-contrast": -0.05, "raster-brightness-min": 0.12 } },
-          { id: "sombras", type: "hillshade", source: "dem", paint: { "hillshade-shadow-color": "#1d3025", "hillshade-exaggeration": 0.35 } },
+          { id: "fondo", type: "background", paint: { "background-color": "#d9dccf" } },
+          { id: "sombras", type: "hillshade", source: "sombra", paint: { "hillshade-shadow-color": "#1d3025", "hillshade-highlight-color": "#f6f4ec", "hillshade-accent-color": "#5e6b55", "hillshade-exaggeration": 0.75, "hillshade-illumination-direction": 315 } },
           { id: "todo", type: "line", source: "todo", paint: { "line-color": "#15201a", "line-width": 2, "line-opacity": 0.25, "line-dasharray": [2, 2] } },
           { id: "halo", type: "line", source: "ruta", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#fff", "line-width": 9, "line-opacity": 0.9 } },
           { id: "linea", type: "line", source: "ruta", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#bd4d1b", "line-width": 5 } },
@@ -71,21 +72,27 @@
     const vuelo = () => {
       cancelAnimationFrame(raf);
       const dur = 9000 + Math.min(total / 1000, 20) * 700, t0 = performance.now();
-      const zoom = map.getZoom() + 1.4;
+      const cam = map.cameraForBounds(caja, { padding: hueco() }), zoom = Math.min(13.4, (cam && cam.zoom ? cam.zoom : map.getZoom()) + 0.35);
+      // el caminante va en el hueco libre (entre la tarjeta y la foto), no en el centro
+      const ancho = m.clientWidth, desvio = m.classList.contains("ruta") && innerWidth > 900 ? [ancho * 0.10, 0] : [0, 0];
       const paso = (t) => {
         const x = Math.min(1, (t - t0) / dur), f = suave(x), s = total * f, p = punto(s);
         map.getSource("ruta").setData({ type: "Feature", geometry: { type: "LineString", coordinates: tramo(s) } });
         map.getSource("yo").setData({ type: "Feature", geometry: { type: "Point", coordinates: [p[0], p[1]] } });
-        kmEl.textContent = (kmTot * f).toFixed(1).replace(".", ",") + " km";
+        kmEl.textContent = (kmTot * f).toFixed(1).replace(".", ",") + ("num" in kmEl.dataset ? "" : " km");
         marcas.forEach((k) => k.el.classList.toggle("is-on", s >= k.s - 30));
         // la cámara mira hacia donde va la ruta (rumbo suavizado) y se acerca en el centro del recorrido
         const ade = punto(Math.min(total, s + total * 0.06)), objetivo = rumbo([p[0], p[1]], [ade[0], ade[1]]);
         if (giro === null) giro = objetivo;
         let dif = ((objetivo - giro + 540) % 360) - 180; giro += dif * 0.035;
         const cerca = Math.sin(Math.PI * Math.min(1, x * 1.15));
-        map.jumpTo({ center: [p[0], p[1]], bearing: giro, pitch: 40 + 22 * cerca, zoom: zoom - 1.2 + 1.2 * cerca });
+        map.easeTo({ center: [p[0], p[1]], offset: desvio, bearing: giro, pitch: 42 + 16 * cerca, zoom: zoom - 0.8 + 0.8 * cerca, duration: 0 });
         if (x < 1) raf = requestAnimationFrame(paso);
-        else map.fitBounds(caja, { padding: 60, pitch: 50, bearing: giro, duration: 2200 });
+        else {
+          // vista final de toda la ruta, algo más abierta para que la inclinación no corte el fondo
+          const fin = map.cameraForBounds(caja, { padding: hueco(), bearing: giro });
+          map.easeTo({ center: fin.center, zoom: fin.zoom - 0.45, bearing: giro, pitch: 40, padding: { left: 0, right: 0, top: 0, bottom: 0 }, offset: m.classList.contains("ruta") && innerWidth > 900 ? [m.clientWidth * 0.10, 0] : [0, 0], duration: 2200 });
+        }
       };
       raf = requestAnimationFrame(paso);
     };
@@ -95,7 +102,7 @@
         new IntersectionObserver((es, io) => es.forEach((e) => { if (e.isIntersecting) { vuelo(); io.disconnect(); } }), { threshold: 0.5 }).observe(m);
       });
     });
-    m.querySelector(".rmap__otra").addEventListener("click", (e) => { if (m.classList.contains("is-3d")) { e.stopImmediatePropagation(); giro = null; map.fitBounds(caja, { padding: 50, pitch: 0, bearing: 0, duration: 0 }); vuelo(); } }, true);
+    m.querySelector(".rmap__otra").addEventListener("click", (e) => { if (m.classList.contains("is-3d")) { e.stopImmediatePropagation(); giro = null; map.fitBounds(caja, { padding: hueco(), pitch: 0, bearing: 0, duration: 0 }); vuelo(); } }, true);
   };
 
   // se carga la librería al acercarse a la primera ruta y cada mapa se monta al acercarse a él
